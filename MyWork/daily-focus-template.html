@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachel's Daily Focus · July 8, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:14px;line-height:1.7;padding:24px;min-height:100vh}
+.page{max-width:1020px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0D1B2A,#01405C);border-radius:14px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.hdr-left h1{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.hdr-left p{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.progress-ring{position:relative;width:52px;height:52px}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring circle{fill:none;stroke-width:4;transition:stroke-dashoffset .4s ease}
+.progress-ring .bg{stroke:rgba(255,255,255,0.12)}
+.progress-ring .fg{stroke:#4ADE80;stroke-linecap:round}
+.progress-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.reset-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;border:.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);cursor:pointer;font-family:'Inter',sans-serif}
+.reset-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.priority-banner{background:#0D1B2A;border-radius:10px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.priority-banner-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#288FC2;white-space:nowrap}
+.priority-items{display:flex;gap:8px;flex-wrap:wrap}
+.priority-pill{font-size:11px;font-weight:500;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,0.12)}
+.four-col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.panel{background:#fff;border:1px solid #E4E7EB;border-radius:12px;overflow:hidden}
+.panel-hdr{padding:10px 14px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:7px}
+.panel-hdr-icon{font-size:14px}
+.panel-title{font-size:12px;font-weight:600;color:#111}
+.panel-sub{font-size:10px;color:#888;margin-top:1px}
+.panel-body{padding:8px 12px}
+.lane-now .panel-hdr{background:#FEF2F2;border-bottom-color:#FECACA}
+.lane-now .panel-title{color:#991B1B}
+.lane-today .panel-hdr{background:#FFF7ED;border-bottom-color:#FED7AA}
+.lane-today .panel-title{color:#92400E}
+.lane-week .panel-hdr{background:#EFF6FF;border-bottom-color:#BFDBFE}
+.lane-week .panel-title{color:#1e40af}
+.lane-waiting .panel-hdr{background:#F8FAFC;border-bottom-color:#E2E8F0}
+.lane-waiting .panel-title{color:#475569}
+.check-item{display:flex;gap:9px;align-items:flex-start;padding:5px 7px;border-radius:7px;cursor:pointer;transition:background .15s;margin-bottom:2px;user-select:none;border:.5px solid transparent}
+.check-item:hover{background:#F8F9FA;border-color:#E4E7EB}
+.check-item.done{background:#F0FDF4;border-color:#BBF7D0;opacity:.7}
+.check-item.done .item-text{text-decoration:line-through;color:#aaa}
+.check-item.done .item-tag{opacity:.5}
+.check-item.done .gov-tag{opacity:.5}
+.checkbox{width:16px;height:16px;border-radius:4px;border:1.5px solid #D1D5DB;background:#fff;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.check-item.done .checkbox{background:#22C55E;border-color:#22C55E}
+.check-item.done .checkbox::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.item-text{font-size:11px;color:#444;line-height:1.5;flex:1}
+.item-text strong{color:#111;font-weight:600}
+.item-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.tag-red{background:#FEE2E2;color:#991B1B}
+.tag-amber{background:#FEF3E2;color:#92400E}
+.tag-green{background:#DCFCE7;color:#166534}
+.tag-blue{background:#E0F2FE;color:#0C4A6E}
+.tag-gray{background:#F1F5F9;color:#475569}
+.tag-purple{background:#F3E8FF;color:#6B21A8}
+.gov-tag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:3px;border:.5px solid}
+.gov-606{background:#EEF2FF;color:#3730A3;border-color:#C7D2FE}
+.gov-644{background:#FDF4FF;color:#6B21A8;border-color:#E9D5FF}
+.gov-prod{background:#FFF7ED;color:#92400E;border-color:#FED7AA}
+.static-item{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:.5px solid #F5F5F5}
+.static-item:last-child{border-bottom:none}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-red{background:#EF4444}.dot-amber{background:#F59E0B}.dot-green{background:#22C55E}.dot-blue{background:#288FC2}.dot-gray{background:#CBD5E1}
+.static-text{font-size:11px;color:#444;line-height:1.5;flex:1}
+.static-text strong{color:#111;font-weight:600}
+.wins-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px}
+.win{display:flex;gap:7px;align-items:flex-start;padding:4px 0;border-bottom:.5px solid #F5F5F5}
+.win:last-child{border-bottom:none}
+.win-check{color:#22C55E;font-weight:700;font-size:12px;flex-shrink:0}
+.win-text{font-size:11px;color:#444;line-height:1.5}
+.completed-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 20px}
+.day-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#aaa;margin-bottom:6px}
+.info-strip{border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:10px}
+.gap-strip{border-left:3px solid #CBD5E1;background:#F8FAFC}
+.dev-strip{border-left:3px solid #288FC2;background:#E0F2FE;display:flex;align-items:center;justify-content:space-between}
+
+/* TIME LOG */
+.time-log-table{width:100%;border-collapse:collapse;font-size:11px}
+.time-log-table th{text-align:left;padding:6px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;border-bottom:1px solid #F0F0F0;background:#FAFAF8}
+.time-log-table td{padding:6px 10px;border-bottom:.5px solid #F5F5F5;vertical-align:top}
+.time-log-table tr:last-child td{border-bottom:none}
+.time-log-table tr:hover td{background:#FAFAF8}
+.add-row-btn{font-size:11px;font-weight:500;color:#288FC2;background:none;border:none;cursor:pointer;padding:6px 10px;font-family:'Inter',sans-serif;display:block;width:100%;text-align:left;border-top:.5px solid #F0F0F0}
+.add-row-btn:hover{background:#F0F9FF}
+.tl-input{font-family:'Inter',sans-serif;font-size:11px;color:#444;background:transparent;border:none;outline:none;width:100%;padding:0}
+.tl-select{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;background:transparent;border:none;outline:none;cursor:pointer;color:#3730A3}
+.gov-badge{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;border:.5px solid}
+
+.footer{text-align:center;font-size:11px;color:#aaa;margin-top:12px;padding:10px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Rachel's Daily Focus</h1>
+    <p>IT Manager, Salesforce & SAP OTC · Newell Brands · Wednesday July 8, 2026</p>
+  </div>
+  <div class="hdr-right">
+    <div class="progress-ring">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="bg" cx="26" cy="26" r="22"/>
+        <circle class="fg" id="progressCircle" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+      </svg>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
+  </div>
+</div>
+
+<div class="priority-banner">
+  <span class="priority-banner-label">⚡ Week priorities</span>
+  <div class="priority-items">
+    <span class="priority-pill">List Price — Sandra questions (SFDC-25395)</span>
+    <span class="priority-pill">Distributor Price (SFDC-25395)</span>
+    <span class="priority-pill">PoP Community Design (SFDC-25708)</span>
+  </div>
+</div>
+
+<div class="four-col">
+
+  <!-- NOW -->
+  <div class="panel lane-now">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🔴</span><div><div class="panel-title">Now</div><div class="panel-sub">Do these first</div></div></div>
+    <div class="panel-body">
+      <div style="font-size:10px;font-weight:700;background:#FEE2E2;color:#991B1B;padding:4px 10px;border-radius:6px;margin-bottom:6px;border-left:3px solid #EF4444">⚠️ Escalation needed — ANZ RCP redesign proposal · ownership TBD</div>
+      <div class="check-item" id="ci1" onclick="toggle('ci1')"><div class="checkbox"></div><div class="item-text"><strong>ANZ RCP redesign</strong> — flag to Mike · waiting on his response</div><div class="item-tag tag-red">Escalate</div><div class="gov-tag gov-prod">Prod Support</div></div>
+      <div class="check-item" id="ci2" onclick="toggle('ci2')"><div class="checkbox"></div><div class="item-text"><strong>Sandra — pricing questions</strong> — compile + send 5 open questions from Mike 1:1 (SFDC-25395)</div><div class="item-tag tag-red">Priority</div><div class="gov-tag gov-606">606 · Design</div></div>
+      <div class="check-item" id="ci3" onclick="toggle('ci3')"><div class="checkbox"></div><div class="item-text"><strong>ANZ contractor login</strong> — MAPA EMEA fixed · ANZ still open · get clarity</div><div class="item-tag tag-red">Open</div><div class="gov-tag gov-prod">Prod Support</div></div>
+      <div class="check-item" id="ci4" onclick="toggle('ci4')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-26118 LATAM</strong> — follow up with Venkat · Lightning page fix in Production + why SF support changed layouts</div><div class="item-tag tag-red">Venkat</div><div class="gov-tag gov-prod">Prod Support</div></div>
+    </div>
+  </div>
+
+  <!-- TODAY -->
+  <div class="panel lane-today">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🟡</span><div><div class="panel-title">Today</div><div class="panel-sub">Get these done today</div></div></div>
+    <div class="panel-body">
+      <div class="check-item" id="ci5" onclick="toggle('ci5')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-25708</strong> — loop in Venkat on PoP Community build · get him started</div><div class="item-tag tag-amber">Week priority</div><div class="gov-tag gov-606">606 · Collab</div></div>
+      <div class="check-item" id="ci6" onclick="toggle('ci6')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-26104</strong> — complete admin checklist: page layout, permission set, sharing settings</div><div class="item-tag tag-amber">MAPA EMEA</div><div class="gov-tag gov-644">644 · Dev</div></div>
+      <div class="check-item" id="ci7" onclick="toggle('ci7')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-26222</strong> — Cedric can't delete opportunity · likely permissions · quick look</div><div class="item-tag tag-amber">New</div><div class="gov-tag gov-644">644 · Dev</div></div>
+      <div class="check-item" id="ci8" onclick="toggle('ci8')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-26140</strong> — auto-approve issue · Linga investigating · retest when ready</div><div class="item-tag tag-gray">Waiting Linga</div><div class="gov-tag gov-644">644 · Testing</div></div>
+      <div class="check-item" id="ci9" onclick="toggle('ci9')"><div class="checkbox"></div><div class="item-text"><strong>Sandra</strong> — follow up on IsCases open questions (SFDC-26220)</div><div class="item-tag tag-amber">eBids</div><div class="gov-tag gov-606">606 · Design</div></div>
+    </div>
+  </div>
+
+  <!-- THIS WEEK -->
+  <div class="panel lane-week">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🔵</span><div><div class="panel-title">This week</div><div class="panel-sub">Before Friday</div></div></div>
+    <div class="panel-body">
+      <div class="check-item" id="ci10" onclick="toggle('ci10')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-25931 ANZ</strong> — follow up with Lee on Visit Type/Category decision</div><div class="item-tag tag-blue">ANZ</div><div class="gov-tag gov-606">606 · Design</div></div>
+      <div class="check-item" id="ci11" onclick="toggle('ci11')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-25402</strong> — Pricing Floors & Guides testing in sandbox</div><div class="item-tag tag-blue">eBids</div><div class="gov-tag gov-606">606 · Testing</div></div>
+      <div class="check-item" id="ci12" onclick="toggle('ci12')"><div class="checkbox"></div><div class="item-text"><strong>eBids layout</strong> + eBid Products layout in sandbox</div><div class="item-tag tag-blue">eBids</div><div class="gov-tag gov-606">606 · Dev</div></div>
+      <div class="check-item" id="ci13" onclick="toggle('ci13')"><div class="checkbox"></div><div class="item-text"><strong>PoP SAP stories A–F</strong> — assign to dev team + schedule working sessions</div><div class="item-tag tag-blue">PoP</div><div class="gov-tag gov-606">606 · Collab</div></div>
+      <div class="check-item" id="ci14" onclick="toggle('ci14')"><div class="checkbox"></div><div class="item-text"><strong>Set up weekly 1:1 with Sandra</strong> + reschedule NA Sales sync</div><div class="item-tag tag-blue">Schedule</div><div class="gov-tag gov-606">606 · Collab</div></div>
+      <div class="check-item" id="ci15" onclick="toggle('ci15')"><div class="checkbox"></div><div class="item-text"><strong>SFDC-26217 / 26219</strong> — add design context for Rebate + Who Won Jiras</div><div class="item-tag tag-blue">eBids</div><div class="gov-tag gov-606">606 · Design</div></div>
+    </div>
+  </div>
+
+  <!-- WAITING -->
+  <div class="panel lane-waiting">
+    <div class="panel-hdr"><span class="panel-hdr-icon">⏳</span><div><div class="panel-title">Waiting</div><div class="panel-sub">Monitor · not your action</div></div></div>
+    <div class="panel-body">
+      <div class="static-item"><div class="dot dot-red"></div><div class="static-text"><strong>Sandra + Marco</strong> — 5 pricing questions from Mike 1:1 · critical path for eBids + PoP</div></div>
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Sandra</strong> — GM% formula · price increase criteria · date logic · IsCases</div></div>
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Linga</strong> — EM72 auto-approve fix (SFDC-26140)</div></div>
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Lee</strong> — ANZ Visit Type/Category decision (SFDC-26056)</div></div>
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Venkat</strong> — LATAM fix · PoP Community build · ANZ LWC</div></div>
+      <div class="static-item"><div class="dot dot-gray"></div><div class="static-text"><strong>Tracy</strong> — EMEA contact report (SFDC-25661)</div></div>
+      <div class="static-item"><div class="dot dot-gray"></div><div class="static-text"><strong>Bill</strong> — bid renewal linking logic</div></div>
+      <div class="static-item"><div class="dot dot-green"></div><div class="static-text"><strong>AskIT P100121871</strong> — Venkat working with user · monitor</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TIME LOG -->
+<div class="panel" style="margin-bottom:10px">
+  <div class="panel-hdr">
+    <span class="panel-hdr-icon">⏱️</span>
+    <div>
+      <div class="panel-title">Time log — Week of July 6</div>
+      <div class="panel-sub">Log as you go · use to update weekly time tracker</div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <span style="font-size:10px;background:#EEF2FF;color:#3730A3;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #C7D2FE">GOV-606</span>
+      <span style="font-size:10px;background:#FDF4FF;color:#6B21A8;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #E9D5FF">GOV-644</span>
+      <span style="font-size:10px;background:#FFF7ED;color:#92400E;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #FED7AA">Prod Support</span>
+    </div>
+  </div>
+  <table class="time-log-table" id="timeTable">
+    <thead>
+      <tr>
+        <th style="width:70px">Date</th>
+        <th style="width:280px">Description</th>
+        <th style="width:100px">GOV / Code</th>
+        <th style="width:120px">Activity</th>
+        <th style="width:60px">Hours</th>
+      </tr>
+    </thead>
+    <tbody id="timeBody">
+      <tr><td><input class="tl-input" value="Mon 7/6"/></td><td><input class="tl-input" value="PoP SAP integration stories A–F created · MAPA EMEA + NA testing confirmed"/></td><td><select class="tl-select" style="color:#3730A3"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Mon 7/6"/></td><td><input class="tl-input" value="ANZ options documented · status slide updated · AskIT follow up"/></td><td><select class="tl-select" style="color:#92400E"><option>GOV-606</option><option>GOV-644</option><option selected>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option selected>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Tue 7/7"/></td><td><input class="tl-input" value="Sandra 1:1 demo · eBid status list + approval flow documented · Linga testing"/></td><td><select class="tl-select" style="color:#3730A3"><option selected>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option selected>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Tue 7/7"/></td><td><input class="tl-input" value="SFDC-26217 · 26218 · 26219 · 26220 created · LATAM root cause identified"/></td><td><select class="tl-select" style="color:#3730A3"><option selected>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option selected>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Wed 7/8"/></td><td><input class="tl-input" value="SFDC-26102 Country default fix — tested and confirmed"/></td><td><select class="tl-select" style="color:#6B21A8"><option>GOV-606</option><option selected>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option selected>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Wed 7/8"/></td><td><input class="tl-input" value="SFDC-26140 approval process — tested · auto-approve issue found · Linga investigating"/></td><td><select class="tl-select" style="color:#6B21A8"><option>GOV-606</option><option selected>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option selected>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Wed 7/8"/></td><td><input class="tl-input" value="Mike 1:1 — List Price + Distributor Price pricing discussion · A633 table approach confirmed"/></td><td><select class="tl-select" style="color:#3730A3"><option selected>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option selected>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" value="Wed 7/8"/></td><td><input class="tl-input" value="ANZ contractor + MAPA EMEA login issues · AskIT chased down"/></td><td><select class="tl-select" style="color:#92400E"><option>GOV-606</option><option>GOV-644</option><option selected>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option selected>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow()">+ Add entry</button>
+</div>
+
+<!-- KNOWN GAP + PERSONAL DEV -->
+<div class="info-strip gap-strip">
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:3px">📌 Known gap — SAP List Price for eBids</div>
+  <div style="font-size:11px;color:#475569;line-height:1.6">Direct pull unreliable due to backdated/deleted records. Approach confirmed: A633 table read where KSCHL=ZPRI. Open questions sent to Sandra + Marco — answers needed before build can begin.</div>
+</div>
+
+<div class="info-strip dev-strip">
+  <div>
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0277A8;margin-bottom:3px">🌱 Personal development — when the dust settles</div>
+    <div style="font-size:11px;color:#0C4A6E;line-height:1.6">Learn Claude Code — set up direct GitHub push to eliminate the download/upload workflow for the IT Toolbox.</div>
+  </div>
+  <span style="font-size:10px;font-weight:600;background:#fff;color:#0277A8;padding:3px 10px;border-radius:20px;white-space:nowrap;margin-left:16px;border:1px solid #BAE6FD">On the list 💙</span>
+</div>
+
+<!-- WINS + COMPLETED -->
+<div class="two-col">
+  <div class="panel">
+    <div class="panel-hdr"><span class="panel-hdr-icon">✅</span><div><div class="panel-title">Wins this week</div><div class="panel-sub">Week of July 6</div></div></div>
+    <div class="panel-body wins-grid">
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">MAPA EMEA + NA Samples testing complete ✅</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">PoP SAP integration stories A–F created</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-26102 Country default fix confirmed ✅</div></div>
+      </div>
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">eBid approval flow + decision matrix documented</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-26217 · 26218 · 26219 · 26220 created</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">A633 table approach confirmed for List Price</div></div>
+      </div>
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Pricing questions compiled + sent to Sandra/Marco</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">LATAM root cause identified</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">eBid status slide updated + new baseline saved</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr"><span class="panel-hdr-icon">📝</span><div><div class="panel-title">Completed this week</div><div class="panel-sub">Running log · Week of July 6</div></div></div>
+    <div class="panel-body completed-grid">
+      <div>
+        <div class="day-label">Monday 7/6</div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">MAPA EMEA + NA testing confirmed</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">PoP SAP stories A–F created</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">ANZ options documented + sent to Lee</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Status slide updated · baseline saved</div></div>
+      </div>
+      <div>
+        <div class="day-label">Tuesday 7/7</div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">eBid status list received from Sandra</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-25604 approval flow documented</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Approval process tested with Linga</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-26217–26220 created</div></div>
+      </div>
+      <div>
+        <div class="day-label">Wednesday 7/8</div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-26102 Country default tested ✅</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">SFDC-26140 approval tested · issue found</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Mike 1:1 — A633 approach confirmed</div></div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Pricing questions sent to Sandra + Marco</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Rachel Throop · IT Manager, Salesforce & SAP OTC · Newell Brands · July 8, 2026 · /daily-focus to update</div>
+
+</div>
+
+<script>
+const STORE_KEY = 'rachel_focus_jul08_2026_v2';
+const TOTAL = 15;
+function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{};}catch(e){return{};}}
+function save(s){try{localStorage.setItem(STORE_KEY,JSON.stringify(s));}catch(e){}}
+function toggle(id){const s=load();s[id]=!s[id];save(s);render(s);}
+function resetAll(){save({});render({});}
+function render(s){
+  let done=0;
+  for(let i=1;i<=TOTAL;i++){const el=document.getElementById('ci'+i);if(!el)continue;if(s['ci'+i]){el.classList.add('done');done++;}else{el.classList.remove('done');}}
+  const pct=Math.round((done/TOTAL)*100);
+  document.getElementById('progressCircle').style.strokeDashoffset=138.2-(pct/100)*138.2;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.querySelectorAll('.panel-body').forEach(l=>{l.querySelectorAll('.check-item.done').forEach(i=>l.appendChild(i));});
+}
+function addRow(){
+  const tbody = document.getElementById('timeBody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input class="tl-input" placeholder="Date"/></td><td><input class="tl-input" placeholder="Description"/></td><td><select class="tl-select" style="color:#3730A3"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td>`;
+  tbody.appendChild(tr);
+}
+render(load());
+</script>
+</body>
+</html>
