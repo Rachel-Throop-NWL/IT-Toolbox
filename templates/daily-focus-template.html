@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Focus Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:14px;line-height:1.7;padding:24px;min-height:100vh}
+.page{max-width:1020px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0D1B2A,#01405C);border-radius:14px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.hdr-left h1{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.hdr-left p{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.progress-ring{position:relative;width:52px;height:52px}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring circle{fill:none;stroke-width:4;transition:stroke-dashoffset .4s ease}
+.progress-ring .bg{stroke:rgba(255,255,255,0.12)}
+.progress-ring .fg{stroke:#4ADE80;stroke-linecap:round}
+.progress-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.reset-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;border:.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);cursor:pointer;font-family:'Inter',sans-serif}
+.reset-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.priority-banner{background:#0D1B2A;border-radius:10px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.priority-banner-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#288FC2;white-space:nowrap}
+.priority-items{display:flex;gap:8px;flex-wrap:wrap}
+.priority-pill{font-size:11px;font-weight:500;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,0.12)}
+.four-col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.panel{background:#fff;border:1px solid #E4E7EB;border-radius:12px;overflow:hidden}
+.panel-hdr{padding:10px 14px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:7px}
+.panel-hdr-icon{font-size:14px}
+.panel-title{font-size:12px;font-weight:600;color:#111}
+.panel-sub{font-size:10px;color:#888;margin-top:1px}
+.panel-body{padding:8px 12px}
+.lane-now .panel-hdr{background:#FEF2F2;border-bottom-color:#FECACA}
+.lane-now .panel-title{color:#991B1B}
+.lane-today .panel-hdr{background:#FFF7ED;border-bottom-color:#FED7AA}
+.lane-today .panel-title{color:#92400E}
+.lane-week .panel-hdr{background:#EFF6FF;border-bottom-color:#BFDBFE}
+.lane-week .panel-title{color:#1e40af}
+.lane-waiting .panel-hdr{background:#F8FAFC;border-bottom-color:#E2E8F0}
+.lane-waiting .panel-title{color:#475569}
+.check-item{display:flex;gap:9px;align-items:flex-start;padding:5px 7px;border-radius:7px;cursor:pointer;transition:background .15s;margin-bottom:2px;user-select:none;border:.5px solid transparent}
+.check-item:hover{background:#F8F9FA;border-color:#E4E7EB}
+.check-item.done{background:#F0FDF4;border-color:#BBF7D0;opacity:.7}
+.check-item.done .item-text{text-decoration:line-through;color:#aaa}
+.check-item.done .item-tag{opacity:.5}
+.check-item.done .gov-tag{opacity:.5}
+.checkbox{width:16px;height:16px;border-radius:4px;border:1.5px solid #D1D5DB;background:#fff;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.check-item.done .checkbox{background:#22C55E;border-color:#22C55E}
+.check-item.done .checkbox::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.item-text{font-size:11px;color:#444;line-height:1.5;flex:1}
+.item-text strong{color:#111;font-weight:600}
+.item-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.tag-red{background:#FEE2E2;color:#991B1B}
+.tag-amber{background:#FEF3E2;color:#92400E}
+.tag-green{background:#DCFCE7;color:#166534}
+.tag-blue{background:#E0F2FE;color:#0C4A6E}
+.tag-gray{background:#F1F5F9;color:#475569}
+.gov-tag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:3px;border:.5px solid}
+.gov-606{background:#EEF2FF;color:#3730A3;border-color:#C7D2FE}
+.gov-644{background:#FDF4FF;color:#6B21A8;border-color:#E9D5FF}
+.gov-prod{background:#FFF7ED;color:#92400E;border-color:#FED7AA}
+.static-item{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:.5px solid #F5F5F5}
+.static-item:last-child{border-bottom:none}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-red{background:#EF4444}.dot-amber{background:#F59E0B}.dot-green{background:#22C55E}.dot-blue{background:#288FC2}.dot-gray{background:#CBD5E1}
+.static-text{font-size:11px;color:#444;line-height:1.5;flex:1}
+.wins-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px}
+.win{display:flex;gap:7px;align-items:flex-start;padding:4px 0;border-bottom:.5px solid #F5F5F5}
+.win:last-child{border-bottom:none}
+.win-check{color:#22C55E;font-weight:700;font-size:12px;flex-shrink:0}
+.win-text{font-size:11px;color:#444;line-height:1.5}
+.completed-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 20px}
+.day-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#aaa;margin-bottom:6px}
+.time-log-table{width:100%;border-collapse:collapse;font-size:11px}
+.time-log-table th{text-align:left;padding:6px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;border-bottom:1px solid #F0F0F0;background:#FAFAF8}
+.time-log-table td{padding:6px 10px;border-bottom:.5px solid #F5F5F5;vertical-align:top}
+.time-log-table tr:last-child td{border-bottom:none}
+.time-log-table tr:hover td{background:#FAFAF8}
+.add-row-btn{font-size:11px;font-weight:500;color:#288FC2;background:none;border:none;cursor:pointer;padding:6px 10px;font-family:'Inter',sans-serif;display:block;width:100%;text-align:left;border-top:.5px solid #F0F0F0}
+.add-row-btn:hover{background:#F0F9FF}
+.tl-input{font-family:'Inter',sans-serif;font-size:11px;color:#444;background:transparent;border:none;outline:none;width:100%;padding:0}
+.tl-select{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;background:transparent;border:none;outline:none;cursor:pointer;color:#3730A3}
+.how-to{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.how-to h3{font-size:12px;font-weight:600;color:#166534;margin-bottom:8px}
+.how-to ol{font-size:11px;color:#444;line-height:1.8;padding-left:18px}
+.how-to ol li strong{color:#111}
+.footer{text-align:center;font-size:11px;color:#aaa;margin-top:12px;padding:10px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HOW TO USE -->
+<div class="how-to">
+  <h3>👋 How to use this template</h3>
+  <ol>
+    <li><strong>Start a Claude conversation</strong> — tell Claude your name, role, projects, priorities, and what you're waiting on</li>
+    <li><strong>Ask Claude to build your daily focus</strong> — say "build me a daily focus doc like the IT Toolbox template"</li>
+    <li><strong>Download and open the file Claude gives you</strong> — your personalized version opens right here in your browser</li>
+    <li><strong>Check items off as you go</strong> — progress saves to your browser automatically</li>
+    <li><strong>Update Claude throughout the day</strong> — "mark X as done", "add Y to today", "waiting on Z" — Claude keeps it current</li>
+    <li><strong>Log your time</strong> — fill in the time log as you work · use it to update your weekly time tracker on Friday</li>
+  </ol>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>🎯 Your Daily Focus</h1>
+    <p>[Your Name] · [Your Role] · [Your Company] · [Date]</p>
+  </div>
+  <div class="hdr-right">
+    <div class="progress-ring">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="bg" cx="26" cy="26" r="22"/>
+        <circle class="fg" id="progressCircle" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+      </svg>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- WEEK PRIORITIES -->
+<div class="priority-banner">
+  <span class="priority-banner-label">⚡ Week priorities</span>
+  <div class="priority-items">
+    <span class="priority-pill">Your top priority 1</span>
+    <span class="priority-pill">Your top priority 2</span>
+    <span class="priority-pill">Your top priority 3</span>
+  </div>
+</div>
+
+<!-- FOUR LANES -->
+<div class="four-col">
+
+  <!-- NOW -->
+  <div class="panel lane-now">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🔴</span><div><div class="panel-title">Now</div><div class="panel-sub">Do these first</div></div></div>
+    <div class="panel-body">
+      <div class="check-item" id="ci1" onclick="toggle('ci1')"><div class="checkbox"></div><div class="item-text"><strong>Urgent item 1</strong> — description of what needs to happen</div><div class="item-tag tag-red">Urgent</div><div class="gov-tag gov-606">GOV-606</div></div>
+      <div class="check-item" id="ci2" onclick="toggle('ci2')"><div class="checkbox"></div><div class="item-text"><strong>Urgent item 2</strong> — description of what needs to happen</div><div class="item-tag tag-red">Urgent</div><div class="gov-tag gov-prod">Prod Support</div></div>
+      <div class="check-item" id="ci3" onclick="toggle('ci3')"><div class="checkbox"></div><div class="item-text"><strong>Urgent item 3</strong> — description of what needs to happen</div><div class="item-tag tag-red">Urgent</div><div class="gov-tag gov-606">GOV-606</div></div>
+    </div>
+  </div>
+
+  <!-- TODAY -->
+  <div class="panel lane-today">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🟡</span><div><div class="panel-title">Today</div><div class="panel-sub">Get these done today</div></div></div>
+    <div class="panel-body">
+      <div class="check-item" id="ci4" onclick="toggle('ci4')"><div class="checkbox"></div><div class="item-text"><strong>Today item 1</strong> — description</div><div class="item-tag tag-amber">Today</div><div class="gov-tag gov-606">GOV-606</div></div>
+      <div class="check-item" id="ci5" onclick="toggle('ci5')"><div class="checkbox"></div><div class="item-text"><strong>Today item 2</strong> — description</div><div class="item-tag tag-amber">Today</div><div class="gov-tag gov-644">GOV-644</div></div>
+      <div class="check-item" id="ci6" onclick="toggle('ci6')"><div class="checkbox"></div><div class="item-text"><strong>Today item 3</strong> — description</div><div class="item-tag tag-amber">Today</div><div class="gov-tag gov-606">GOV-606</div></div>
+    </div>
+  </div>
+
+  <!-- THIS WEEK -->
+  <div class="panel lane-week">
+    <div class="panel-hdr"><span class="panel-hdr-icon">🔵</span><div><div class="panel-title">This week</div><div class="panel-sub">Before Friday</div></div></div>
+    <div class="panel-body">
+      <div class="check-item" id="ci7" onclick="toggle('ci7')"><div class="checkbox"></div><div class="item-text"><strong>This week item 1</strong> — description</div><div class="item-tag tag-blue">This week</div><div class="gov-tag gov-606">GOV-606</div></div>
+      <div class="check-item" id="ci8" onclick="toggle('ci8')"><div class="checkbox"></div><div class="item-text"><strong>This week item 2</strong> — description</div><div class="item-tag tag-blue">This week</div><div class="gov-tag gov-606">GOV-606</div></div>
+      <div class="check-item" id="ci9" onclick="toggle('ci9')"><div class="checkbox"></div><div class="item-text"><strong>This week item 3</strong> — description</div><div class="item-tag tag-blue">This week</div><div class="gov-tag gov-644">GOV-644</div></div>
+    </div>
+  </div>
+
+  <!-- WAITING -->
+  <div class="panel lane-waiting">
+    <div class="panel-hdr"><span class="panel-hdr-icon">⏳</span><div><div class="panel-title">Waiting</div><div class="panel-sub">Monitor · not your action</div></div></div>
+    <div class="panel-body">
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Person A</strong> — what you need from them</div></div>
+      <div class="static-item"><div class="dot dot-amber"></div><div class="static-text"><strong>Person B</strong> — what you need from them</div></div>
+      <div class="static-item"><div class="dot dot-gray"></div><div class="static-text"><strong>Person C</strong> — what you need from them</div></div>
+      <div class="static-item"><div class="dot dot-green"></div><div class="static-text"><strong>Person D</strong> — task complete ✅</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TIME LOG -->
+<div class="panel" style="margin-bottom:10px">
+  <div class="panel-hdr">
+    <span class="panel-hdr-icon">⏱️</span>
+    <div>
+      <div class="panel-title">Time log — Week of [Date]</div>
+      <div class="panel-sub">Log as you go · use to update weekly time tracker</div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <span style="font-size:10px;background:#EEF2FF;color:#3730A3;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #C7D2FE">GOV-606</span>
+      <span style="font-size:10px;background:#FDF4FF;color:#6B21A8;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #E9D5FF">GOV-644</span>
+      <span style="font-size:10px;background:#FFF7ED;color:#92400E;padding:2px 8px;border-radius:10px;font-weight:600;border:.5px solid #FED7AA">Prod Support</span>
+    </div>
+  </div>
+  <table class="time-log-table" id="timeTable">
+    <thead>
+      <tr>
+        <th style="width:70px">Date</th>
+        <th style="width:320px">Description</th>
+        <th style="width:110px">GOV / Code</th>
+        <th style="width:130px">Activity</th>
+        <th style="width:60px">Hours</th>
+      </tr>
+    </thead>
+    <tbody id="timeBody">
+      <tr><td><input class="tl-input" placeholder="Mon"/></td><td><input class="tl-input" placeholder="What did you work on?"/></td><td><select class="tl-select"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" placeholder="Tue"/></td><td><input class="tl-input" placeholder="What did you work on?"/></td><td><select class="tl-select"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+      <tr><td><input class="tl-input" placeholder="Wed"/></td><td><input class="tl-input" placeholder="What did you work on?"/></td><td><select class="tl-select"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow()">+ Add entry</button>
+</div>
+
+<!-- WINS + COMPLETED -->
+<div class="two-col">
+  <div class="panel">
+    <div class="panel-hdr"><span class="panel-hdr-icon">✅</span><div><div class="panel-title">Wins this week</div><div class="panel-sub">Week of [Date]</div></div></div>
+    <div class="panel-body wins-grid">
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Add your wins here as you complete things</div></div>
+      </div>
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">Another win this week</div></div>
+      </div>
+      <div>
+        <div class="win"><div class="win-check">✓</div><div class="win-text">And another</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr"><span class="panel-hdr-icon">📝</span><div><div class="panel-title">Completed this week</div><div class="panel-sub">Running log · Week of [Date]</div></div></div>
+    <div class="panel-body completed-grid">
+      <div>
+        <div class="day-label">Monday</div>
+        <div style="font-size:11px;color:#ccc;font-style:italic">Nothing yet</div>
+      </div>
+      <div>
+        <div class="day-label">Tuesday</div>
+        <div style="font-size:11px;color:#ccc;font-style:italic">Nothing yet</div>
+      </div>
+      <div>
+        <div class="day-label">Wed–Fri</div>
+        <div style="font-size:11px;color:#ccc;font-style:italic">Nothing yet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Built with Claude · IT Toolbox · Newell Brands OTC · /daily-focus to update · <a href="https://rachel-throop-nwl.github.io/IT-Toolbox/" style="color:#288FC2;text-decoration:none">IT Toolbox ↗</a></div>
+
+</div>
+
+<script>
+const STORE_KEY = 'daily_focus_template_v1';
+const TOTAL = 9;
+function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{};}catch(e){return{};}}
+function save(s){try{localStorage.setItem(STORE_KEY,JSON.stringify(s));}catch(e){}}
+function toggle(id){const s=load();s[id]=!s[id];save(s);render(s);}
+function resetAll(){save({});render({});}
+function render(s){
+  let done=0;
+  for(let i=1;i<=TOTAL;i++){const el=document.getElementById('ci'+i);if(!el)continue;if(s['ci'+i]){el.classList.add('done');done++;}else{el.classList.remove('done');}}
+  const pct=Math.round((done/TOTAL)*100);
+  document.getElementById('progressCircle').style.strokeDashoffset=138.2-(pct/100)*138.2;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.querySelectorAll('.panel-body').forEach(l=>{l.querySelectorAll('.check-item.done').forEach(i=>l.appendChild(i));});
+}
+function addRow(){
+  const tbody=document.getElementById('timeBody');
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><input class="tl-input" placeholder="Date"/></td><td><input class="tl-input" placeholder="What did you work on?"/></td><td><select class="tl-select"><option>GOV-606</option><option>GOV-644</option><option>Prod Support</option></select></td><td><select class="tl-select"><option>Design</option><option>Development</option><option>Testing</option><option>Project Collab</option></select></td><td><input class="tl-input" style="width:50px" placeholder="hrs"/></td>`;
+  tbody.appendChild(tr);
+}
+render(load());
+</script>
+</body>
+</html>
