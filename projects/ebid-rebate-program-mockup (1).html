@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBid Rebate Programs — UX Mockup v3 · SFDC-26217</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Salesforce Sans',Arial,sans-serif;background:#f3f3f3;font-size:13px;padding:24px}
+.page{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.meta{background:#fff;border:1px solid #dddbda;border-radius:6px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.meta h1{font-size:15px;font-weight:700;color:#080707}
+.meta p{font-size:11px;color:#706e6b;margin-top:2px}
+.meta-badge{font-size:11px;font-weight:600;background:#e8f4fd;color:#0176d3;padding:4px 12px;border-radius:20px;border:1px solid #c9e0f5}
+.section-label{font-size:12px;font-weight:600;color:#444;padding:4px 0}
+.sf{background:#f3f3f3;border-radius:8px;overflow:hidden;border:1px solid #dddbda;margin-bottom:4px}
+.sf-nav{background:#0176d3;padding:0 12px;height:44px;display:flex;align-items:center;gap:16px}
+.sf-logo{width:24px;height:24px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center}
+.sf-logo-inner{width:14px;height:14px;background:#0176d3;border-radius:2px}
+.sf-nav-title{color:#fff;font-size:13px;font-weight:600;opacity:.9}
+.sf-search{background:rgba(255,255,255,0.15);border-radius:4px;padding:4px 10px;color:rgba(255,255,255,.6);font-size:12px;flex:1;max-width:220px;margin-left:auto}
+.sf-avatar{width:28px;height:28px;border-radius:50%;background:#fff;color:#0176d3;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sf-hdr{background:#fff;border-bottom:1px solid #dddbda;padding:12px 16px}
+.sf-hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.sf-hdr-label{font-size:11px;color:#706e6b;margin-bottom:2px}
+.sf-hdr-title{font-size:18px;font-weight:700;color:#080707}
+.sf-hdr-actions{display:flex;gap:8px;align-items:center}
+.sf-status{font-size:11px;font-weight:600;padding:4px 10px;border-radius:4px}
+.sf-status-approved{background:#ecf9ec;color:#2e844a;border:1px solid #91d9a0}
+.sf-status-inprocess{background:#fff3e0;color:#a16000;border:1px solid #ffd57e}
+.sf-status-rebate{background:#f3e8ff;color:#6b21a8;border:1px solid #e9d5ff}
+.btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:inherit}
+.btn-outline{border:1px solid #dddbda;background:#fff;color:#0176d3}
+.btn-primary{border:1px solid #0176d3;background:#0176d3;color:#fff}
+.sf-highlights{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #dddbda;border-radius:4px;overflow:hidden}
+.sf-highlight{padding:8px 12px;border-right:1px solid #dddbda}
+.sf-highlight:last-child{border-right:none}
+.sf-hl-label{font-size:10px;color:#706e6b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.sf-hl-val{font-size:13px;font-weight:600;color:#0176d3}
+.sf-hl-val.plain{color:#080707}
+.sf-tabs{background:#fff;border-bottom:1px solid #dddbda;padding:0 16px;display:flex}
+.sf-tab{padding:8px 16px;font-size:12px;color:#706e6b;cursor:pointer}
+.sf-tab.active{color:#0176d3;font-weight:600;border-bottom:2px solid #0176d3}
+.sf-body{padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+.summary-bar{background:#fff;border:1px solid #dddbda;border-radius:4px;padding:10px 14px;display:flex;gap:24px;align-items:center}
+.summary-val{font-size:16px;font-weight:700;color:#080707}
+.summary-label{font-size:10px;color:#706e6b;text-transform:uppercase;letter-spacing:.05em}
+.summary-divider{width:1px;height:32px;background:#dddbda}
+.program-card{background:#fff;border:1px solid #dddbda;border-radius:4px;overflow:hidden}
+.program-hdr{background:#f3f3f3;padding:10px 14px;border-bottom:1px solid #dddbda;display:flex;align-items:center;justify-content:space-between}
+.program-title{font-size:12px;font-weight:600;color:#080707}
+.badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px}
+.badge-blue{background:#e8f4fd;color:#0176d3;border:1px solid #c9e0f5}
+.badge-teal{background:#e0f5f5;color:#00757d;border:1px solid #9de7d7}
+.badge-green{background:#ecf9ec;color:#2e844a;border:1px solid #91d9a0}
+.badge-amber{background:#fff3e0;color:#a16000;border:1px solid #ffd57e}
+.badge-purple{background:#f3e8ff;color:#6b21a8;border:1px solid #e9d5ff}
+.program-fields{padding:12px 14px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;border-bottom:1px solid #dddbda}
+.field-label{font-size:11px;color:#706e6b;margin-bottom:1px}
+.field-val{font-size:12px;font-weight:500;color:#080707}
+.tiers-section{padding:10px 14px}
+.tiers-title{font-size:11px;font-weight:600;color:#706e6b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:6px 10px;text-align:left;font-size:10px;font-weight:600;color:#706e6b;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #dddbda;background:#f3f3f3}
+td{padding:6px 10px;border-bottom:.5px solid #f3f3f3;color:#444}
+tr:last-child td{border-bottom:none}
+.tier-reward{color:#2e844a;font-weight:600}
+.add-tier{font-size:11px;color:#0176d3;background:none;border:none;cursor:pointer;font-family:inherit;margin-top:8px;display:block}
+.action-btn{font-size:11px;color:#0176d3;background:none;border:none;cursor:pointer;font-family:inherit}
+.info-note{background:#e8f4fd;border:1px solid #c9e0f5;border-radius:4px;padding:8px 12px;font-size:11px;color:#0176d3;display:flex;gap:6px;align-items:flex-start}
+.footer{text-align:center;font-size:11px;color:#706e6b;padding:8px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="meta">
+  <div>
+    <h1>eBid Rebate Programs — UX Mockup v3</h1>
+    <p>SFDC-26217 · Updated July 20, 2026 · Rebate programs are informational only · no separate approval process</p>
+  </div>
+  <span class="meta-badge">Pending Sandra + Venkat confirmation</span>
+</div>
+
+<!-- SCENARIO A -->
+<div class="section-label">Scenario A — Rebate programs on a standard eBid</div>
+<div class="sf">
+  <div class="sf-nav"><div class="sf-logo"><div class="sf-logo-inner"></div></div><span class="sf-nav-title">Newell Brands</span><div class="sf-search">🔍 Search...</div><div class="sf-avatar">RT</div></div>
+  <div class="sf-hdr">
+    <div class="sf-hdr-top">
+      <div><div class="sf-hdr-label">eBid</div><div class="sf-hdr-title">eBid #99-001234 · Standard</div></div>
+      <div class="sf-hdr-actions"><div class="sf-status sf-status-approved">Final Approved</div><button class="btn btn-outline">Edit</button></div>
+    </div>
+    <div class="sf-highlights">
+      <div class="sf-highlight"><div class="sf-hl-label">Distributor</div><div class="sf-hl-val">Distributor A</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Bid type</div><div class="sf-hl-val plain">Standard</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Bid price</div><div class="sf-hl-val plain">$21.00</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Max rebate</div><div class="sf-hl-val plain">3%</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Valid through</div><div class="sf-hl-val plain">Dec 31, 2026</div></div>
+    </div>
+  </div>
+  <div class="sf-tabs">
+    <div class="sf-tab">Details</div>
+    <div class="sf-tab">Approval requests</div>
+    <div class="sf-tab">eBid products</div>
+    <div class="sf-tab active">Rebate programs</div>
+    <div class="sf-tab">Activity</div>
+  </div>
+  <div class="sf-body">
+
+    <div class="summary-bar">
+      <div><div class="summary-val">2</div><div class="summary-label">Programs</div></div>
+      <div class="summary-divider"></div>
+      <div><div class="summary-val">3%</div><div class="summary-label">Max rebate</div></div>
+      <div class="summary-divider"></div>
+      <div><div class="summary-val" style="font-size:13px">Growth · Volume</div><div class="summary-label">Types</div></div>
+      <div style="margin-left:auto"><button class="btn btn-outline">+ New program</button></div>
+    </div>
+
+    <!-- Program 1: Growth -->
+    <div class="program-card">
+      <div class="program-hdr">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="program-title">Q3 Growth Incentive</span>
+          <span class="badge badge-blue">Growth</span>
+</div>
+        <div style="display:flex;gap:8px"><button class="action-btn">Edit</button><button class="action-btn">▲ Collapse</button></div>
+      </div>
+      <div class="program-fields">
+        <div><div class="field-label">Reward type</div><div class="field-val">Percentage</div></div>
+        <div><div class="field-label">Threshold type</div><div class="field-val">Growth %</div></div>
+        <div><div class="field-label">Contract start</div><div class="field-val">Jan 1, 2026</div></div>
+        <div><div class="field-label">Contract end</div><div class="field-val">Dec 31, 2026</div></div>
+        <div><div class="field-label">Max rebate %</div><div class="field-val">3% <span style="font-size:10px;color:#706e6b">(manual)</span></div></div>
+      </div>
+      <div class="tiers-section">
+        <div class="tiers-title">Tiers</div>
+        <table>
+          <thead><tr><th>Tier</th><th>Threshold type</th><th>From</th><th>To</th><th>Reward</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500;color:#080707">Tier 1</td><td>Growth %</td><td>0%</td><td>5%</td><td class="tier-reward">1%</td></tr>
+            <tr><td style="font-weight:500;color:#080707">Tier 2</td><td>Growth %</td><td>5%</td><td>10%</td><td class="tier-reward">2%</td></tr>
+            <tr><td style="font-weight:500;color:#080707">Tier 3</td><td>Growth %</td><td>10%</td><td>And above</td><td class="tier-reward">3%</td></tr>
+          </tbody>
+        </table>
+        <button class="add-tier">+ Add tier</button>
+      </div>
+    </div>
+
+    <!-- Program 2: Volume -->
+    <div class="program-card">
+      <div class="program-hdr">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="program-title">Annual Volume Incentive</span>
+          <span class="badge badge-teal">Volume</span>
+</div>
+        <div style="display:flex;gap:8px"><button class="action-btn">Edit</button><button class="action-btn">▼ Expand</button></div>
+      </div>
+      <div class="program-fields">
+        <div><div class="field-label">Reward type</div><div class="field-val">Percentage</div></div>
+        <div><div class="field-label">Threshold type</div><div class="field-val">Volume</div></div>
+        <div><div class="field-label">Contract start</div><div class="field-val">Jan 1, 2026</div></div>
+        <div><div class="field-label">Contract end</div><div class="field-val">Dec 31, 2026</div></div>
+        <div><div class="field-label">Max rebate %</div><div class="field-val">2%</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCENARIO B -->
+<div class="section-label" style="margin-top:8px">Scenario B — Rebate-only bid (standalone)</div>
+<div class="sf">
+  <div class="sf-nav"><div class="sf-logo"><div class="sf-logo-inner"></div></div><span class="sf-nav-title">Newell Brands</span><div class="sf-search">🔍 Search...</div><div class="sf-avatar">RT</div></div>
+  <div class="sf-hdr">
+    <div class="sf-hdr-top">
+      <div><div class="sf-hdr-label">eBid</div><div class="sf-hdr-title">eBid #99-005500 · Rebate Only</div></div>
+      <div class="sf-hdr-actions">
+        <div class="sf-status sf-status-rebate">Rebate Only</div>
+        <div class="sf-status sf-status-inprocess" style="margin-left:4px">In Process</div>
+        <button class="btn btn-outline">Edit</button>
+      </div>
+    </div>
+    <div class="sf-highlights">
+      <div class="sf-highlight"><div class="sf-hl-label">Distributor</div><div class="sf-hl-val">Distributor B</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Bid type</div><div class="sf-hl-val plain" style="color:#6b21a8;font-weight:700">Rebate Only</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Programs</div><div class="sf-hl-val plain">1</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Max rebate</div><div class="sf-hl-val plain">4%</div></div>
+      <div class="sf-highlight"><div class="sf-hl-label">Valid through</div><div class="sf-hl-val plain">Dec 31, 2026</div></div>
+    </div>
+  </div>
+  <div class="sf-tabs">
+    <div class="sf-tab">Details</div>
+    <div class="sf-tab">Approval requests</div>
+    <div class="sf-tab active">Rebate programs</div>
+    <div class="sf-tab">Activity</div>
+  </div>
+  <div class="sf-body">
+
+    <div class="info-note">ℹ <span><strong>Rebate Only bid</strong> — contains rebate program details only. No bid pricing or product lines. Rebate programs are informational — approval follows the standard bid approval process per the routing guide.</span></div>
+
+    <div class="program-card">
+      <div class="program-hdr">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="program-title">Annual Growth Rebate</span>
+          <span class="badge badge-blue">Growth</span>
+</div>
+        <div style="display:flex;gap:8px"><button class="action-btn">Edit</button><button class="action-btn">▲ Collapse</button></div>
+      </div>
+      <div class="program-fields">
+        <div><div class="field-label">Reward type</div><div class="field-val">Percentage</div></div>
+        <div><div class="field-label">Threshold type</div><div class="field-val">Growth %</div></div>
+        <div><div class="field-label">Contract start</div><div class="field-val">Jan 1, 2026</div></div>
+        <div><div class="field-label">Contract end</div><div class="field-val">Dec 31, 2026</div></div>
+        <div><div class="field-label">Max rebate %</div><div class="field-val">4%</div></div>
+      </div>
+      <div class="tiers-section">
+        <div class="tiers-title">Tiers</div>
+        <table>
+          <thead><tr><th>Tier</th><th>Threshold type</th><th>From</th><th>To</th><th>Reward</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500;color:#080707">Tier 1</td><td>Growth %</td><td>0%</td><td>5%</td><td class="tier-reward">1.5%</td></tr>
+            <tr><td style="font-weight:500;color:#080707">Tier 2</td><td>Growth %</td><td>5%</td><td>10%</td><td class="tier-reward">2.5%</td></tr>
+            <tr><td style="font-weight:500;color:#080707">Tier 3</td><td>Growth %</td><td>10%</td><td>15%</td><td class="tier-reward">3.5%</td></tr>
+            <tr><td style="font-weight:500;color:#080707">Tier 4</td><td>Growth %</td><td>15%</td><td>And above</td><td class="tier-reward">4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">Rachel Throop · IT Manager, Salesforce & SAP OTC · Newell Brands · SFDC-26217 · v3 · July 20, 2026</div>
+</div>
+</body>
+</html>
