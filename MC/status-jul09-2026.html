@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Update — Rachel Throop — July 9, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:14px;line-height:1.7;padding:32px}
+.page{max-width:820px;margin:0 auto}
+.header{background:linear-gradient(135deg,#01405C 0%,#0277A8 100%);border-radius:16px;padding:24px 28px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.03em}
+.header p{font-size:11px;color:rgba(255,255,255,0.65);margin-top:4px}
+.header-date{background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;white-space:nowrap}
+.mike{background:#0D1B2A;border-radius:14px;padding:18px 22px;margin-bottom:20px}
+.mike-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#288FC2;margin-bottom:10px}
+.mike-items{display:flex;flex-direction:column;gap:8px}
+.mike-item{display:flex;gap:12px;align-items:flex-start}
+.mike-num{width:22px;height:22px;border-radius:6px;background:#288FC2;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.mike-text{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5}
+.mike-text strong{color:#fff}
+.panel{background:#fff;border:1px solid #E4E7EB;border-radius:12px;margin-bottom:14px;overflow:hidden}
+.panel-hdr{padding:12px 16px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:13px;font-weight:600;color:#111}
+.panel-body{padding:14px 16px}
+.badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px}
+.badge-amber{background:#FEF3E2;color:#92400E;border:1px solid #F5C842}
+.badge-green{background:#DCFCE7;color:#166534;border:1px solid #86EFAC}
+.badge-blue{background:#E0F2FE;color:#0C4A6E;border:1px solid #BAE6FD}
+.badge-red{background:#FEE2E2;color:#991B1B;border:1px solid #FECACA}
+.item{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:.5px solid #F5F5F5}
+.item:last-child{border-bottom:none}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-green{background:#22C55E}
+.dot-amber{background:#F59E0B}
+.dot-red{background:#EF4444}
+.dot-blue{background:#288FC2}
+.dot-gray{background:#CBD5E1}
+.item-text{font-size:12px;color:#444;line-height:1.5;flex:1}
+.item-text strong{color:#111;font-weight:600}
+.item-tag{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.tag-amber{background:#FEF3E2;color:#92400E}
+.tag-green{background:#DCFCE7;color:#166534}
+.tag-blue{background:#E0F2FE;color:#0C4A6E}
+.tag-gray{background:#F1F5F9;color:#475569}
+.tag-red{background:#FEE2E2;color:#991B1B}
+.shift-item{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:.5px solid #F5F5F5}
+.shift-item:last-child{border-bottom:none}
+.shift-dot{width:6px;height:6px;border-radius:50%;background:#CBD5E1;flex-shrink:0;margin-top:6px}
+.shift-text{font-size:12px;color:#555;line-height:1.5}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dates{display:flex;flex-direction:column;gap:6px}
+.date-row{display:flex;gap:10px;align-items:baseline}
+.date-val{font-size:11px;font-weight:700;font-family:monospace;color:#0277A8;min-width:50px}
+.date-val.red{color:#EF4444}
+.date-text{font-size:12px;color:#444}
+.waiting{display:flex;flex-direction:column;gap:5px}
+.wait-item{font-size:12px;background:#FFF7ED;color:#78350F;padding:5px 10px;border-radius:7px;border-left:3px solid #F59E0B}
+.wait-item.red{background:#FEF2F2;color:#7F1D1D;border-left-color:#EF4444}
+.footer{text-align:center;margin-top:16px;padding:14px;font-size:11px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Weekly Status Update</h1>
+    <p>Rachel Throop &nbsp;·&nbsp; IT Manager &nbsp;·&nbsp; Salesforce & SAP OTC</p>
+  </div>
+  <span class="header-date">July 9, 2026</span>
+</div>
+
+<!-- HIGHLIGHTS FOR MIKE -->
+<div class="mike">
+  <div class="mike-label">Highlights for Mike</div>
+  <div class="mike-items">
+    <div class="mike-item"><div class="mike-num">1</div><div class="mike-text"><strong>eBids list price architecture confirmed</strong> — Sandra confirmed L0 (Pre-paid) is the standard across all RCP distributors. Approach: store L0 in a Z table/TVARV variable (not hardcoded) so pricing structures can change without a code deployment. Awaiting Mike's sign-off before handing to Prasad for build.</div></div>
+    <div class="mike-item"><div class="mike-num">2</div><div class="mike-text"><strong>eBids approval process design complete</strong> — decision matrix, flow diagram, and approver type gap analysis all documented in SFDC-25604. Working session with Venkat scheduled July 10 to align on build approach.</div></div>
+    <div class="mike-item"><div class="mike-num">3</div><div class="mike-text"><strong>MAPA EMEA Samples — testing complete</strong> — both EMEA WITL and NA regression testing confirmed complete ✅. Approval process moved to next sprint for additional testing time. Admin tasks in progress.</div></div>
+    <div class="mike-item"><div class="mike-num">4</div><div class="mike-text"><strong>ANZ RCP redesign — flagged for discussion</strong> — the ANZ RCP contracting group submitted a full sales process redesign proposal. Email sent to Mike this week. Ownership and resourcing decision needed before review begins.</div></div>
+  </div>
+</div>
+
+<!-- PROJECT TILES -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+
+  <div style="background:#fff;border:1px solid #E4E7EB;border-radius:12px;border-top:3px solid #F59E0B;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:#111">eBids migration</span>
+      <span style="font-size:10px;font-weight:600;background:#FEF3E2;color:#92400E;padding:2px 8px;border-radius:20px;border:1px solid #F5C842">Go-live Dec 1</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>List price confirmed — L0 via Z table · awaiting Mike sign-off</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>Approval process design complete · Venkat call July 10</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#F59E0B;flex-shrink:0">—</span>Sandra inputs on critical path (IsCases, date logic, GM%)</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#F59E0B;flex-shrink:0">—</span>eBid layout + Pricing Floors testing still on Rachel's plate</div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #E4E7EB;border-radius:12px;border-top:3px solid #F59E0B;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:#111">PoP migration</span>
+      <span style="font-size:10px;font-weight:600;background:#FEF3E2;color:#92400E;padding:2px 8px;border-radius:20px;border:1px solid #F5C842">Go-live Dec 1</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>Community design spec complete · working session needed before build</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>SAP integration stories A, B, D, E, F created</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>Single Order + PoP Exempt flags scoped + documented</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#EF4444;flex-shrink:0">!</span>SFDC-25966 ZCMIR gap still blocking community build</div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #E4E7EB;border-radius:12px;border-top:3px solid #22C55E;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:#111">MAPA EMEA Samples</span>
+      <span style="font-size:10px;font-weight:600;background:#DCFCE7;color:#166534;padding:2px 8px;border-radius:20px;border:1px solid #86EFAC">Go-live Oct 1</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>EMEA WITL + NA regression testing complete ✅</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>SFDC-26102 Country default fix confirmed ✅</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#F59E0B;flex-shrink:0">—</span>Approval process moved to next sprint · more testing time</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#F59E0B;flex-shrink:0">—</span>Admin tasks in progress (page layout, perm set, sharing)</div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #E4E7EB;border-radius:12px;border-top:3px solid #EF4444;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:#111">International IT</span>
+      <span style="font-size:10px;font-weight:600;background:#E0F2FE;color:#0C4A6E;padding:2px 8px;border-radius:20px;border:1px solid #BAE6FD">Active · ongoing</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#EF4444;flex-shrink:0">!</span>LATAM production issue — Lightning page fix · waiting on Venkat</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#EF4444;flex-shrink:0">!</span>ANZ RCP redesign — escalated to Mike · ownership TBD</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#F59E0B;flex-shrink:0">—</span>ANZ Visit Type/Category LWC — awaiting Lee's decision</div>
+      <div style="font-size:12px;color:#444;display:flex;gap:6px;align-items:flex-start"><span style="color:#22C55E;flex-shrink:0">✓</span>5 tickets ready to deploy next sprint</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- In Rachel's Queue -->
+<div class="panel">
+  <div class="panel-hdr"><span class="panel-title">In Rachel's queue — items only she can move</span><span class="badge badge-red">10 open items</span></div>
+  <div class="panel-body">
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>PoP Community Design decisions</strong> — Venkat needs design calls before build can progress on SFDC-25708</div><span class="item-tag tag-amber">PoP</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>Rebate details + program structure</strong> — requirements not yet finalized · new Jira created (SFDC-26217)</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>Who Won / Tabulations design</strong> — object structure and trigger still to be documented (SFDC-26219)</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>IsCases field logic</strong> — awaiting Sandra confirmation before Vineet can build (SFDC-26220)</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>Date logic by bid type</strong> — awaiting Sandra · blocks eBids configuration</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>eBid layout + eBid Products layout</strong> — sandbox build on Rachel's plate</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>Pricing Floors & Guides testing</strong> — SFDC-25402 · not yet started</div><span class="item-tag tag-amber">eBids</span></div>
+    <div class="item"><div class="dot dot-blue"></div><div class="item-text"><strong>Venkat call July 10</strong> — approval process working session · UX mockup and decision matrix prepared</div><span class="item-tag tag-blue">Tomorrow</span></div>
+    <div class="item"><div class="dot dot-blue"></div><div class="item-text"><strong>MAPA EMEA admin tasks</strong> — page layout, permission set, sharing settings (SFDC-26104)</div><span class="item-tag tag-blue">MAPA EMEA</span></div>
+    <div class="item"><div class="dot dot-amber"></div><div class="item-text"><strong>ANZ Visit Type + Category — LWC design</strong> — dependent multi-select not native to SF · custom LWC required · awaiting Lee's decision on approach before Venkat can build (SFDC-26056)</div><span class="item-tag tag-amber">ANZ</span></div>
+    <div style="border-top:.5px solid #F0F0F0;margin-top:8px;padding-top:8px;font-size:11px;color:#888;font-style:italic">None of these can move without Rachel. These items are actively in progress alongside the unplanned work and meetings documented below.</div>
+  </div>
+</div>
+
+<!-- How the week moved -->
+<div class="panel">
+  <div class="panel-hdr"><span class="panel-title">How the week moved</span></div>
+  <div class="panel-body">
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">7.5 hours in meetings Mon–Thu (OTC CAB daily · Salesforce planning · Mike 1:1 pricing · Sandra working session · Linga approval testing · ANZ 1.5hr call + 30 min one-off)</div></div>
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">SAP pricing analysis — completed outside original scope · confirmed known gap · no action needed</div></div>
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">ANZ RCP full sales process redesign proposal landed — outside project plan · escalated to Mike</div></div>
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">LATAM production issue — Salesforce support made unannounced layout changes · root cause identified · waiting on Venkat for fix</div></div>
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">ANZ contractor + MAPA EMEA login issues · AskIT P100121871 (multi-user SSO issue) — all resolved or routed</div></div>
+    <div class="shift-item"><div class="shift-dot"></div><div class="shift-text">eBids and PoP project work continued in remaining time — list price architecture confirmed, approval design complete, 4 new Jiras created</div></div>
+  </div>
+</div>
+
+<!-- Bottom panels -->
+<div class="bottom-grid">
+  <div class="panel" style="margin-bottom:0">
+    <div class="panel-hdr"><span class="panel-title">Waiting on others</span></div>
+    <div class="panel-body waiting">
+      <div class="wait-item red">Mike — sign-off on Z table approach for list price · blocks Prasad build</div>
+      <div class="wait-item red">Mike — ANZ RCP redesign ownership + resourcing decision</div>
+      <div class="wait-item">Sandra — GM% formula · IsCases logic · date logic · price increase criteria</div>
+      <div class="wait-item">Sandra + Marco — list price fallback logic (what if no L0 record exists?)</div>
+      <div class="wait-item">Venkat — LATAM Lightning page fix in Production</div>
+      <div class="wait-item">Lee — ANZ Visit Type/Category decision (SFDC-26056)</div>
+      <div class="wait-item">Tracy — EMEA contact report (SFDC-25661)</div>
+    </div>
+  </div>
+  <div class="panel" style="margin-bottom:0">
+    <div class="panel-hdr"><span class="panel-title">Key dates</span></div>
+    <div class="panel-body dates">
+      <div class="date-row"><span class="date-val red">Oct 1</span><span class="date-text"><strong>MAPA EMEA Go-Live</strong> · 12 weeks</span></div>
+      <div class="date-row"><span class="date-val red">Dec 1</span><span class="date-text"><strong>eBids + PoP Go-Live</strong> · 21 weeks</span></div>
+      <div style="border-top:.5px solid #F0F0F0;margin-top:10px;padding-top:10px">
+        <div class="date-row" style="margin-bottom:4px"><span class="date-val" style="color:#888;font-size:10px">Aug</span><span class="date-text" style="font-size:11px;color:#888">Open decisions must be made to protect UAT window</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Rachel Throop · IT Manager, Salesforce & SAP OTC · Newell Brands · Week of July 7–9, 2026 &nbsp;·&nbsp; <a href="https://rachel-throop-nwl.github.io/IT-Toolbox/" style="color:#288FC2;text-decoration:none">IT Toolbox ↗</a></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Status — Rachel Throop — July 16, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:13px;line-height:1.6;padding:28px}
+.page{max-width:960px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0D1B2A,#01405C);border-radius:14px;padding:20px 26px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.hdr h1{font-size:18px;font-weight:700;color:#fff}
+.hdr p{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+.hdr-right{text-align:right}
+.hdr-date{font-size:13px;font-weight:600;color:#fff}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px}
+/* Project tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tile{background:#fff;border:1px solid #E4E7EB;border-radius:12px;border-top:3px solid #F59E0B;padding:14px 16px}
+.tile.green{border-top-color:#22C55E}
+.tile.red{border-top-color:#EF4444}
+.tile.blue{border-top-color:#288FC2}
+.tile-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tile-title{font-size:13px;font-weight:600;color:#111}
+.tile-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px}
+.badge-amber{background:#FEF3E2;color:#92400E;border:1px solid #F5C842}
+.badge-green{background:#DCFCE7;color:#166534;border:1px solid #86EFAC}
+.badge-red{background:#FEE2E2;color:#991B1B;border:1px solid #FECACA}
+.badge-blue{background:#E0F2FE;color:#0C4A6E;border:1px solid #BAE6FD}
+.tile-item{display:flex;gap:6px;align-items:flex-start;padding:4px 0;font-size:11px;color:#444;line-height:1.5;border-bottom:.5px solid #F5F5F5}
+.tile-item:last-child{border-bottom:none}
+.tile-icon{flex-shrink:0;font-weight:700;margin-top:1px}
+.ic-green{color:#22C55E}.ic-amber{color:#F59E0B}.ic-red{color:#EF4444}
+/* Panels */
+.panel{background:#fff;border:1px solid #E4E7EB;border-radius:12px;margin-bottom:12px;overflow:hidden}
+.panel-hdr{padding:10px 16px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;justify-content:space-between;background:#FAFAF8}
+.panel-title{font-size:12px;font-weight:600;color:#111}
+.panel-body{padding:12px 16px}
+.row{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:.5px solid #F5F5F5;font-size:12px;line-height:1.5}
+.row:last-child{border-bottom:none}
+.row-icon{flex-shrink:0;font-size:13px;margin-top:1px}
+.row-text{flex:1;color:#444}
+.row-text strong{color:#111;font-weight:600}
+.row-tag{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.tag-green{background:#DCFCE7;color:#166534}
+.tag-amber{background:#FEF3E2;color:#92400E}
+.tag-red{background:#FEE2E2;color:#991B1B}
+.tag-blue{background:#E0F2FE;color:#0C4A6E}
+.tag-gray{background:#F1F5F9;color:#475569}
+.tag-purple{background:#F3E8FF;color:#6B21A8}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.footer{text-align:center;font-size:11px;color:#aaa;margin-top:16px;padding:10px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <h1>Weekly Status Report</h1>
+    <p>Rachel Throop · IT Manager, Salesforce & SAP Order to Cash · Newell Brands</p>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-date">July 16, 2026</div>
+    <div class="hdr-sub">Week of July 13–16</div>
+  </div>
+</div>
+
+<!-- PROJECT TILES -->
+<div class="tiles">
+
+  <!-- eBids -->
+  <div class="tile">
+    <div class="tile-hdr">
+      <span class="tile-title">eBids migration</span>
+      <span class="tile-badge badge-amber">Go-live Dec 1</span>
+    </div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>List price confirmed — Order Simulate approach · now in Venkat's court for nightly simulation feasibility</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>Approval process flow finalized · awaiting Sandra confirmation before posting to Jira + handing to dev</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>Rebate Program UX mockup built · in requirements review with Sandra</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>GM% formula received · SFDC-26248 created · open questions posted to Sandra</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>Who Won mockup — in progress · needs Rachel to complete before Sandra review</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>Preliminary eBids testing target 1–2 weeks · pending Sandra open items on critical path</div>
+  </div>
+
+  <!-- PoP -->
+  <div class="tile">
+    <div class="tile-hdr">
+      <span class="tile-title">PoP migration</span>
+      <span class="tile-badge badge-amber">Go-live Dec 1</span>
+    </div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>Community design spec complete · working session with Sandra + Venkat needed before Subtask 2 build</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>SAP integration stories A, B, D, E, F created under SFDC-25709 epic</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>Single Order + PoP Exempt flags scoped + documented</div>
+    <div class="tile-item"><span class="tile-icon ic-red">!</span>SFDC-25966 ZCMIR gap still blocking community build</div>
+  </div>
+
+  <!-- MAPA EMEA -->
+  <div class="tile green">
+    <div class="tile-hdr">
+      <span class="tile-title">MAPA EMEA Samples</span>
+      <span class="tile-badge badge-green">Go-live Oct 1</span>
+    </div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>EMEA WITL testing complete ✅ · all countries confirmed</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>NA regression testing complete ✅ · Karen Chavis confirmed</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>SFDC-26102 Country default fix confirmed ✅</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>Sample approval process not yet working · with development · Rachel monitoring</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>SFDC-26104 admin tasks still open (page layout · perm set · sharing settings)</div>
+  </div>
+
+  <!-- International IT -->
+  <div class="tile red">
+    <div class="tile-hdr">
+      <span class="tile-title">International IT</span>
+      <span class="tile-badge badge-blue">Active · ongoing</span>
+    </div>
+    <div class="tile-item"><span class="tile-icon ic-red">!</span>LATAM production issue (SFDC-26118) — Lightning page fix still with Venkat · pending Production deployment</div>
+    <div class="tile-item"><span class="tile-icon ic-red">!</span>ANZ RCP/APAC consultant project — Mike asked Rachel to lead call with Lee · call was open-ended (Mike did not join) · follow-up call next week to align on goals + ownership</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>ANZ Visit Type/Category LWC (SFDC-26056) — in progress · awaiting Venkat build</div>
+    <div class="tile-item"><span class="tile-icon ic-amber">—</span>SFDC-26273 MAPA EMEA visits not showing in reports — triage needed</div>
+    <div class="tile-item"><span class="tile-icon ic-green">✓</span>5 tickets ready to deploy next sprint</div>
+  </div>
+
+</div>
+
+<!-- ACCOMPLISHED THIS WEEK -->
+<div class="panel">
+  <div class="panel-hdr"><span class="panel-title">✅ Accomplished this week</span></div>
+  <div class="panel-body">
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>Approval process</strong> — updated step-by-step flow · statuses confirmed (Initialized · In Process · Final Approved · Final Not Approved) · LWC inline user lookup approach documented · awaiting Sandra final confirmation</div><span class="row-tag tag-green">eBids</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>Rebate Program design</strong> — UX mockup built in Salesforce Lightning style · object structure proposed (eBid → Rebate_Program__c → Rebate_Tier__c) · 10 design questions posted to SFDC-26217 · in requirements review with Sandra</div><span class="row-tag tag-green">eBids</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>List price architecture review</strong> — TVARV and Z table ruled out · Order Simulate (CGPlus/BAPI) confirmed as preferred approach · full decision doc built · Venkat exploring nightly simulation feasibility</div><span class="row-tag tag-green">eBids</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>GM% formula (SFDC-26248)</strong> — formula received from Sandra · Jira created · 5 open questions posted for Sandra 1:1</div><span class="row-tag tag-green">eBids</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>Who Won mockup</strong> — Salesforce Lightning UX mockup in progress · 6 design questions posted to SFDC-26219 · to be completed by Rachel before Sandra review</div><span class="row-tag tag-amber">In progress</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>ANZ RCP/APAC consultant project</strong> — coordinated and ran call with Lee per Mike's request · call was open-ended without Mike · follow-up call being scheduled for next week to align on goals and ownership</div><span class="row-tag tag-blue">Int'l IT</span></div>
+    <div class="row"><span class="row-icon">✓</span><div class="row-text"><strong>IT Coaching Program</strong> — actively participating · requires recurring weekly meeting time not currently captured in project tracking</div><span class="row-tag tag-purple">Development</span></div>
+  </div>
+</div>
+
+<!-- IN RACHEL'S QUEUE -->
+<div class="two-col">
+
+  <div class="panel" style="margin-bottom:0">
+    <div class="panel-hdr"><span class="panel-title">📋 In Rachel's queue</span></div>
+    <div class="panel-body">
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>Complete Who Won UX mockup</strong> (SFDC-26219) · then bring to Sandra for review</div><span class="row-tag tag-red">This week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>Sandra 1:1</strong> — confirm approval process · rebate mockup · Who Won · testing plan · GM% open questions</div><span class="row-tag tag-red">This week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>SFDC-25949</strong> — review Pricing Guides · confirm aligned with eBids requirements</div><span class="row-tag tag-amber">This week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>SFDC-26104</strong> — MAPA EMEA admin tasks · page layout · permission set · sharing settings</div><span class="row-tag tag-amber">This week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>ANZ RCP/APAC</strong> — schedule follow-up call for next week · align on project goals and ownership with Mike</div><span class="row-tag tag-amber">Next week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>PoP working session</strong> — schedule Sandra + Venkat on Single Order + PoP Exempt before Subtask 2 build</div><span class="row-tag tag-amber">Next week</span></div>
+      <div class="row"><span class="row-icon">→</span><div class="row-text"><strong>Deploy sprint queue</strong> — SFDC-24971 · 25306 · 24682 · 24764 · 25929</div><span class="row-tag tag-gray">Queued</span></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0">
+    <div class="panel-hdr"><span class="panel-title">⏳ Waiting on others</span></div>
+    <div class="panel-body">
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Sandra</strong> — approval process confirmation · rebate program review + 10 questions · GM% open questions · IsCases · date logic by bid type · price increase criteria</div><span class="row-tag tag-red">Critical path</span></div>
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Venkat</strong> — list price nightly simulation feasibility · LATAM SFDC-26118 Production fix · eBids approval LWC build · ANZ SFDC-26056 LWC build</div><span class="row-tag tag-amber">In progress</span></div>
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Linga</strong> — MAPA EMEA sample approval process fix (SFDC-26140) · approval process not yet working · in development</div><span class="row-tag tag-amber">Dev</span></div>
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Mike</strong> — ANZ RCP/APAC project ownership and resourcing decision · overall project goals alignment</div><span class="row-tag tag-amber">Pending</span></div>
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Tracy</strong> — EMEA custom contact report (SFDC-25661)</div><span class="row-tag tag-gray">Waiting</span></div>
+      <div class="row"><span class="row-icon">⏳</span><div class="row-text"><strong>Lee</strong> — ANZ Visit Type/Category decision (SFDC-26056) · follow-up call next week</div><span class="row-tag tag-gray">Waiting</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CALLOUT -->
+<div style="border-left:3px solid #F59E0B;background:#FEF3E2;border-radius:0 10px 10px 0;padding:10px 14px;margin-top:12px;margin-bottom:4px">
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#92400E;margin-bottom:3px">⚠ Sandra inputs remain on critical path</div>
+  <div style="font-size:11px;color:#78350F;line-height:1.6">Approval process, rebate design, Who Won design, IsCases, GM% open questions — all pending Sandra 1:1 this week. Open business decisions must be resolved by end of July to protect the August UAT window and Dec 1 go-live for both eBids and PoP.</div>
+</div>
+
+<div class="footer">Rachel Throop · IT Manager, Salesforce & SAP OTC · Newell Brands · Week of July 13–16, 2026</div>
+
+</div>
+</body>
+</html>
