@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachel Throop — IT Toolbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:13px;line-height:1.6;padding:28px;min-height:100vh}
+.page{max-width:1060px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0D1B2A,#01405C);border-radius:14px;padding:22px 28px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.hdr h1{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.hdr p{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+.hdr-date{font-size:12px;font-weight:600;color:rgba(255,255,255,0.7)}
+
+/* Section headers */
+.section-group{margin-bottom:22px}
+.section-group-title{font-size:13px;font-weight:700;color:#111;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.section-group-title span{font-size:11px;font-weight:400;color:#888}
+.section-divider{height:1px;background:linear-gradient(to right,#D1D5DB,transparent);margin-bottom:12px}
+
+/* Doc type rows */
+.doc-type-row{margin-bottom:14px}
+.doc-type-label{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.doc-type-icon{font-size:13px}
+.doc-type-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888}
+.doc-type-line{flex:1;height:.5px;background:#E4E7EB}
+
+/* Cards */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.card{background:#fff;border:1px solid #E4E7EB;border-radius:10px;padding:12px 14px;text-decoration:none;display:block;transition:all .15s;border-left:3px solid #E4E7EB}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,0.08);transform:translateY(-1px)}
+.card.amber{border-left-color:#F59E0B}
+.card.amber:hover{border-color:#F59E0B}
+.card.green{border-left-color:#22C55E}
+.card.green:hover{border-color:#22C55E}
+.card.red{border-left-color:#EF4444}
+.card.blue{border-left-color:#288FC2}
+.card.blue:hover{border-color:#288FC2}
+.card.purple{border-left-color:#A855F7}
+.card.gray{border-left-color:#94A3B8}
+.card.dark{background:#0D1B2A;border-left-color:#288FC2;border-color:#1e3a50}
+.card.dark:hover{background:#162436;box-shadow:0 3px 10px rgba(0,0,0,0.2)}
+.card-icon{font-size:16px;margin-bottom:5px}
+.card-title{font-size:12px;font-weight:600;color:#111;margin-bottom:2px}
+.card.dark .card-title{color:#fff}
+.card-sub{font-size:10px;color:#888;line-height:1.4}
+.card.dark .card-sub{color:rgba(255,255,255,0.5)}
+.card-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;display:inline-block;margin-top:5px}
+.badge-green{background:#DCFCE7;color:#166534}
+.badge-amber{background:#FEF3E2;color:#92400E}
+.badge-red{background:#FEE2E2;color:#991B1B}
+.badge-blue{background:#E0F2FE;color:#0C4A6E}
+.badge-purple{background:#F3E8FF;color:#6B21A8}
+.badge-gray{background:#F1F5F9;color:#475569}
+
+.footer{text-align:center;font-size:11px;color:#aaa;margin-top:24px;padding:10px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div>
+    <h1>🎯 Rachel Throop — IT Toolbox</h1>
+    <p>IT Manager, Salesforce & SAP Order to Cash · Newell Brands · rachel.throop@newellco.com</p>
+  </div>
+  <div class="hdr-date">Updated July 23, 2026</div>
+</div>
+
+<!-- ─── DAILY FOCUS ─────────────────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">🎯 Daily focus <span>Start here every morning</span></div>
+  <div class="section-divider"></div>
+  <div class="grid-2">
+    <a href="MyWork/rachel-daily-focus.html" class="card dark">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Today's Focus — July 23, 2026</div>
+      <div class="card-sub">Now · Today · This Week · Waiting on Me · Waiting on Others</div>
+      <div class="card-badge badge-blue">Live doc</div>
+    </a>
+    <a href="MyWork/rachel-weekly-tracker.html" class="card dark">
+      <div class="card-icon">📅</div>
+      <div class="card-title">Weekly Tracker — July 21–25, 2026</div>
+      <div class="card-sub">Wins · Completed log · Recurring obligations · Time log</div>
+      <div class="card-badge badge-green">Week of July 21</div>
+    </a>
+  </div>
+</div>
+
+<!-- ─── EBIDS & POP ─────────────────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">⚡ eBids & PoP Migration <span>Go-live Dec 1, 2026 · Epic SFDC-25055 / SFDC-25709</span></div>
+  <div class="section-divider"></div>
+
+  <!-- UX Mockups -->
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">🖥️</span>
+      <span class="doc-type-name">UX Mockups</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/ebid-product-add-mockup.html" class="card amber">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">Product Add Mockup</div>
+        <div class="card-sub">Interactive search · role-based pricing · line entry · SFDC-25604</div>
+        <div class="card-badge badge-amber">New Jul 23</div>
+      </a>
+      <a href="projects/ebid-approval-ux-mockup.html" class="card amber">
+        <div class="card-icon">✅</div>
+        <div class="card-title">Approval Process Mockup</div>
+        <div class="card-sub">Coordinator + approver Lightning views · SFDC-25604</div>
+        <div class="card-badge badge-amber">SFDC-25604</div>
+      </a>
+      <a href="projects/ebid-rebate-program-mockup.html" class="card amber">
+        <div class="card-icon">💰</div>
+        <div class="card-title">Rebate Programs Mockup</div>
+        <div class="card-sub">UX mockup v3 · standard + rebate-only bid · SFDC-26217</div>
+        <div class="card-badge badge-amber">Updated Jul 20</div>
+      </a>
+      <a href="projects/ebid-who-won-mockup.html" class="card amber">
+        <div class="card-icon">🏆</div>
+        <div class="card-title">Who Won / Tabulations Mockup</div>
+        <div class="card-sub">Public bid type · award results · SFDC-26219</div>
+        <div class="card-badge badge-amber">In progress</div>
+      </a>
+      <a href="projects/SFDC-25708-UI-Mockup.html" class="card amber">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">PoP Community UI Mockup</div>
+        <div class="card-sub">Clickable Community design · SFDC-25708</div>
+        <div class="card-badge badge-amber">Working session needed</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Dev Specs -->
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">⚙️</span>
+      <span class="doc-type-name">Dev Specs</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/ebid-approval-dev-spec.html" class="card amber">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">Approval Process Dev Spec</div>
+        <div class="card-sub">5 scenarios · statuses · routing · SFDC-25604</div>
+        <div class="card-badge badge-amber">Pending Dev</div>
+      </a>
+      <a href="projects/ebid-rebate-program-dev-spec.html" class="card amber">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">Rebate Programs Dev Spec</div>
+        <div class="card-sub">Objects · fields · layout · SFDC-26217</div>
+        <div class="card-badge badge-amber">Updated Jul 20</div>
+      </a>
+      <a href="projects/SFDC-25708-PoP-Community-Design-Spec.html" class="card amber">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">PoP Community Design Spec</div>
+        <div class="card-sub">Full tech spec for Venkat · SFDC-25708</div>
+        <div class="card-badge badge-amber">Spec complete</div>
+      </a>
+      <a href="projects/ebid-open-requirements.html" class="card red">
+        <div class="card-icon">🔓</div>
+        <div class="card-title">Open Requirements</div>
+        <div class="card-sub">8 open items post dev call · distributor flag · SAP data · Chatter</div>
+        <div class="card-badge badge-red">Open items</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Flows & Swimlanes -->
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">🔀</span>
+      <span class="doc-type-name">Flows & Swimlanes</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/ebid-approval-flow.html" class="card amber">
+        <div class="card-icon">🔀</div>
+        <div class="card-title">Approval Process Swimlane</div>
+        <div class="card-sub">Full approval flow by actor · SFDC-25604</div>
+        <div class="card-badge badge-amber">Updated Jul 16</div>
+      </a>
+      <a href="projects/ebid-approval-flow-changes.html" class="card amber">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Approval — What Changed</div>
+        <div class="card-sub">Dev change log · remove · update · add</div>
+        <div class="card-badge badge-amber">Jul 16</div>
+      </a>
+      <a href="projects/pop-sap-integration-deck.html" class="card amber">
+        <div class="card-icon">🔗</div>
+        <div class="card-title">PoP SAP Integration Deck</div>
+        <div class="card-sub">Stories A, B, D, E, F · integration flow</div>
+        <div class="card-badge badge-green">Stories created</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Decision & Architecture -->
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">🏛️</span>
+      <span class="doc-type-name">Decision & Architecture</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/list-price-architecture-review.html" class="card amber">
+        <div class="card-icon">💲</div>
+        <div class="card-title">List Price Architecture Review</div>
+        <div class="card-sub">TVARV vs Z table vs Order Simulate · decision doc · SFDC-25395</div>
+        <div class="card-badge badge-blue">Venkat exploring</div>
+      </a>
+      <a href="projects/ebid-pricing-routing-guide.html" class="card amber">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Pricing Routing Guide</div>
+        <div class="card-sub">Approval guidelines · all routing scenarios · key contacts</div>
+        <div class="card-badge badge-amber">Jul 20</div>
+      </a>
+      <a href="projects/ebids-pop-project.html" class="card amber">
+        <div class="card-icon">📊</div>
+        <div class="card-title">eBids & PoP Project Hub</div>
+        <div class="card-sub">Project overview · status · key links · epic index</div>
+        <div class="card-badge badge-amber">In Development</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Reference & Checklists -->
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">📝</span>
+      <span class="doc-type-name">Reference & Checklists</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/ebid-sandra-demo-checklist.html" class="card amber">
+        <div class="card-icon">☑️</div>
+        <div class="card-title">Sandra Demo Checklist</div>
+        <div class="card-sub">17 action items from 1:1 demo · interactive checkoff</div>
+        <div class="card-badge badge-amber">Jul 21</div>
+      </a>
+      <a href="projects/ebid-sandra-demo-changes.html" class="card amber">
+        <div class="card-icon">📝</div>
+        <div class="card-title">Sandra Demo Changes Doc</div>
+        <div class="card-sub">Full change list by section · owner tags · open items</div>
+        <div class="card-badge badge-amber">Jul 21</div>
+      </a>
+      <a href="projects/ebids-pop-exec-summary.html" class="card gray">
+        <div class="card-icon">📄</div>
+        <div class="card-title">eBids & PoP Exec Summary</div>
+        <div class="card-sub">Executive summary document</div>
+        <div class="card-badge badge-gray">Reference</div>
+      </a>
+      <a href="projects/ebids-pricing-deck.html" class="card gray">
+        <div class="card-icon">📊</div>
+        <div class="card-title">eBids Pricing Working Session</div>
+        <div class="card-sub">Pricing floors and guides deck</div>
+        <div class="card-badge badge-gray">Reference</div>
+      </a>
+      <a href="projects/venkat-call-prep-jul10.html" class="card gray">
+        <div class="card-icon">📞</div>
+        <div class="card-title">Venkat Call Prep — Jul 10</div>
+        <div class="card-sub">eBids approval process working session prep</div>
+        <div class="card-badge badge-gray">Reference</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ORDER MANAGEMENT ────────────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">🛒 Order Management & Order Status <span>SFDC-26339</span></div>
+  <div class="section-divider"></div>
+
+  <div class="doc-type-row">
+    <div class="doc-type-label">
+      <span class="doc-type-icon">🖥️</span>
+      <span class="doc-type-name">UX Mockups</span>
+      <div class="doc-type-line"></div>
+    </div>
+    <div class="grid-4">
+      <a href="projects/order-status-widget-mockup.html" class="card blue">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Order Status Widget Mockup</div>
+        <div class="card-sub">Per-line delivery · PGI · billing status · VBUP data model · SFDC-26339</div>
+        <div class="card-badge badge-blue">New Jul 25</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATUS REPORTS ──────────────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">📊 Mike's weekly status reports <span>Sent every Thursday</span></div>
+  <div class="section-divider"></div>
+  <div class="grid-4">
+    <a href="MC/status-jul16-2026.html" class="card green">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — July 16, 2026</div>
+      <div class="card-sub">Week of July 13–16 · current</div>
+      <div class="card-badge badge-green">Current</div>
+    </a>
+    <a href="MC/status-jul09-2026.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — July 9, 2026</div>
+      <div class="card-sub">Week of July 6–9</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+    <a href="MC/status-jul02-2026.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — July 2, 2026</div>
+      <div class="card-sub">Week of June 29–July 2</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+    <a href="MC/status-jun25-2026.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — June 25, 2026</div>
+      <div class="card-sub">Week of June 22–25</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+    <a href="MC/status-jun19-2026.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — June 19, 2026</div>
+      <div class="card-sub">Week of June 16–19</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+    <a href="MC/status-jun09-2026.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — June 9, 2026</div>
+      <div class="card-sub">Week of June 6–9</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+    <a href="MC/status-jun04-simple.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Status — June 4, 2026</div>
+      <div class="card-sub">Week of June 2–4</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+  </div>
+</div>
+
+<!-- ─── WORKLOAD & DASHBOARDS ───────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">📈 Workload & dashboards</div>
+  <div class="section-divider"></div>
+  <div class="grid-4">
+    <a href="MyWork/otc-dashboard.html" class="card blue">
+      <div class="card-icon">📈</div>
+      <div class="card-title">OTC Project Dashboard</div>
+      <div class="card-sub">All active projects · status at a glance</div>
+      <div class="card-badge badge-blue">Dashboard</div>
+    </a>
+    <a href="projects/rachel-workload-living.html" class="card blue">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Living Workload Tracker</div>
+      <div class="card-sub">Weekly trend · carrying forward items</div>
+      <div class="card-badge badge-blue">Updated weekly</div>
+    </a>
+    <a href="projects/ebids-pop-jira-board.html" class="card blue">
+      <div class="card-icon">🗂️</div>
+      <div class="card-title">eBids & PoP Jira Board</div>
+      <div class="card-sub">Visual Jira board for eBids & PoP tickets</div>
+      <div class="card-badge badge-blue">Live board</div>
+    </a>
+    <a href="projects/rachel-workload-jul6-8.html" class="card gray">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Workload Snapshot — Jul 6–8</div>
+      <div class="card-sub">Detailed breakdown · hidden project callout</div>
+      <div class="card-badge badge-gray">Archive</div>
+    </a>
+  </div>
+</div>
+
+<!-- ─── TEMPLATES & TOOLS ───────────────────────────── -->
+<div class="section-group">
+  <div class="section-group-title">🛠️ Templates & tools</div>
+  <div class="section-divider"></div>
+  <div class="grid-4">
+    <a href="templates/deck-builder.html" class="card purple">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">Meeting Brief Builder</div>
+      <div class="card-sub">AI-powered meeting prep generator</div>
+      <div class="card-badge badge-purple">AI Tool</div>
+    </a>
+    <a href="templates/working-session-deck-template.html" class="card purple">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Working Session Template</div>
+      <div class="card-sub">Reusable working session deck template</div>
+      <div class="card-badge badge-purple">Template</div>
+    </a>
+    <a href="templates/project-comms-planner-template.html" class="card purple">
+      <div class="card-icon">📣</div>
+      <div class="card-title">Project Comms Planner</div>
+      <div class="card-sub">Communication planning template</div>
+      <div class="card-badge badge-purple">Template</div>
+    </a>
+    <a href="templates/daily-focus-template.html" class="card purple">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Daily Focus Template</div>
+      <div class="card-sub">Blank shareable focus doc with claude.ai instructions</div>
+      <div class="card-badge badge-purple">Template</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">Rachel Throop · IT Manager, Salesforce & SAP OTC · Newell Brands · Updated July 23, 2026 · rachel-throop-nwl.github.io/IT-Toolbox</div>
+</div>
+</body>
+</html>
