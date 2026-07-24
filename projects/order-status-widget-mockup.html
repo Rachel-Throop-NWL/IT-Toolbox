@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Status Widget Mockup — SO 1055743240</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;color:#111;font-size:13px;line-height:1.6;padding:28px;min-height:100vh}
+.page{max-width:920px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0D1B2A,#01405C);border-radius:14px;padding:18px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.hdr h1{font-size:16px;font-weight:700;color:#fff}
+.hdr p{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.note{background:#EBF5FF;border:.5px solid #B5D4F4;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#01405C;line-height:1.6}
+.note b{font-weight:600}
+.widget{background:#fff;border:1px solid #E4E7EB;border-radius:12px;overflow:hidden}
+.widget-hdr{background:#FAFAF8;border-bottom:.5px solid #D1D5DB;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.widget-title{font-size:13px;font-weight:600;color:#111}
+.widget-meta{font-size:11px;color:#888;margin-top:2px}
+.badges{display:flex;gap:8px}
+.badge{font-size:10px;font-weight:600;padding:2px 9px;border-radius:10px}
+.badge-warn{background:#FEF3E2;color:#92400E;border:.5px solid #FED7AA}
+.badge-success{background:#DCFCE7;color:#166534;border:.5px solid #BBF7D0}
+.badge-danger{background:#FEE2E2;color:#991B1B;border:.5px solid #FECACA}
+.badge-info{background:#EFF6FF;color:#1e40af;border:.5px solid #BFDBFE}
+.meta-bar{background:#F8F9FA;border-bottom:.5px solid #E4E7EB;padding:8px 16px;display:flex;gap:24px}
+.meta-item{font-size:11px;color:#888}
+.meta-item span{color:#111;font-weight:500}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:720px}
+th{text-align:left;padding:7px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888;border-bottom:.5px solid #E4E7EB;background:#FAFAF8;white-space:nowrap}
+th.center{text-align:center}
+td{padding:8px 12px;border-bottom:.5px solid #F5F5F5;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr.blocked{background:#FEF2F2}
+.line-num{color:#666;font-weight:600}
+.mat-num{font-family:'Roboto Mono',monospace;font-size:11px;color:#185FA5;font-weight:500}
+.qty{text-align:right;color:#666}
+td.center{text-align:center}
+.s{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;display:inline-block;white-space:nowrap}
+.s-success{background:#DCFCE7;color:#166534;border:.5px solid #BBF7D0}
+.s-warn{background:#FEF3E2;color:#92400E;border:.5px solid #FED7AA}
+.s-danger{background:#FEE2E2;color:#991B1B;border:.5px solid #FECACA}
+.legend{padding:10px 16px;background:#FAFAF8;border-top:.5px solid #E4E7EB;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.leg-label{font-size:10px;color:#888}
+.source{margin-left:auto;font-size:10px;color:#aaa}
+.notes{background:#fff;border:1px solid #E4E7EB;border-radius:12px;padding:16px 20px;margin-top:14px}
+.notes-title{font-size:12px;font-weight:700;color:#01405C;margin-bottom:10px}
+.note-row{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:.5px solid #F5F5F5;font-size:11px;color:#444;line-height:1.5}
+.note-row:last-child{border-bottom:none}
+.note-num{font-weight:700;color:#185FA5;flex-shrink:0;width:16px}
+.footer{text-align:center;font-size:11px;color:#aaa;margin-top:14px;padding:8px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div>
+    <h1>Order Status Widget — UX Mockup</h1>
+    <p>SFDC-26339 · Sales Order Status Widget · Newell Brands · July 25, 2026</p>
+  </div>
+</div>
+
+<div class="note">
+  <b>Purpose:</b> This mockup illustrates what the Order Status Widget should display per line, using real SAP data from SO 1055743240 (Ferguson Enterprises Inc). Status is derived from VBUP table fields LFSTA (delivery status), WBSTA (goods movement/PGI status), and FKSTA (billing status) — queried separately for the Sales Order document and the Delivery documents.
+</div>
+
+<div class="widget">
+  <div class="widget-hdr">
+    <div>
+      <div class="widget-title">Order status</div>
+      <div class="widget-meta">SO 1055743240 · Ferguson Enterprises Inc · Ship-to 126132</div>
+    </div>
+    <div class="badges">
+      <span class="badge badge-warn">Partially delivered</span>
+      <span class="badge badge-warn">Partially invoiced</span>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    <div class="meta-item">Deliveries: <span>8212857277 · 8212858324</span></div>
+    <div class="meta-item">Invoice: <span>6560958147</span></div>
+    <div class="meta-item">Delivery date: <span>07/10/2026</span></div>
+    <div class="meta-item">Invoice date: <span>07/15/2026</span></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Material #</th>
+          <th style="text-align:right">Qty</th>
+          <th class="center">Delivery created</th>
+          <th class="center">Shipped (PGI)</th>
+          <th class="center">Invoiced</th>
+          <th class="center">Overall</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="line-num">10</td>
+          <td class="mat-num">1004892</td>
+          <td class="qty">24 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">20</td>
+          <td class="mat-num">1007341</td>
+          <td class="qty">6 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">30</td>
+          <td class="mat-num">1009123</td>
+          <td class="qty">8 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">40</td>
+          <td class="mat-num">1002211</td>
+          <td class="qty">12 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">50</td>
+          <td class="mat-num">1005501</td>
+          <td class="qty">3 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">60</td>
+          <td class="mat-num">1005588</td>
+          <td class="qty">6 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">70</td>
+          <td class="mat-num">1008801</td>
+          <td class="qty">12 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-warn">In progress</span></td>
+        </tr>
+        <tr class="blocked">
+          <td class="line-num" style="color:#991B1B">80</td>
+          <td class="mat-num">1008834</td>
+          <td class="qty">12 UNT</td>
+          <td class="center"><span class="s s-danger">Not created</span></td>
+          <td class="center"><span class="s s-danger">Not shipped</span></td>
+          <td class="center"><span class="s s-danger">Not invoiced</span></td>
+          <td class="center"><span class="s s-danger">Not confirmed</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">90</td>
+          <td class="mat-num">1003301</td>
+          <td class="qty">1 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-success">Shipped</span></td>
+          <td class="center"><span class="s s-success">Invoiced</span></td>
+          <td class="center"><span class="s s-success">Complete</span></td>
+        </tr>
+        <tr>
+          <td class="line-num">100</td>
+          <td class="mat-num">1007700</td>
+          <td class="qty">1 UNT</td>
+          <td class="center"><span class="s s-success">Created</span></td>
+          <td class="center"><span class="s s-success">Shipped</span></td>
+          <td class="center"><span class="s s-success">Invoiced</span></td>
+          <td class="center"><span class="s s-success">Complete</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="legend">
+    <span class="leg-label">Legend:</span>
+    <span class="s s-success">Complete / Created / Shipped / Invoiced</span>
+    <span class="s s-warn">In progress</span>
+    <span class="s s-danger">Not started / blocked</span>
+    <span class="source">Source: VBUP · LFSTA / WBSTA / FKSTA</span>
+  </div>
+</div>
+
+<div class="notes">
+  <div class="notes-title">Key observations from this order</div>
+  <div class="note-row"><div class="note-num">1</div><div>Lines 10–70 show delivery created (LFSTA = C on Sales Order) but PGI has not been posted (WBSTA = A on Delivery 8212857277) — goods have not physically left the warehouse despite the Sales Order showing these lines as "Completed."</div></div>
+  <div class="note-row"><div class="note-num">2</div><div>Line 80 has no delivery created and is not yet confirmed — this single line is holding the entire header at "Partially Delivered." It should be flagged visually as the blocking item.</div></div>
+  <div class="note-row"><div class="note-num">3</div><div>Lines 90 and 100 are on Delivery 8212858324 — PGI has been posted (WBSTA = C) and billing is complete (FKSTA = C). These are the only lines that are truly complete end-to-end.</div></div>
+  <div class="note-row"><div class="note-num">4</div><div>SAP header status alone ("Partially Delivered / Partially Invoiced") does not tell users which lines are blocked, which have shipped, or which have been invoiced. The per-line widget is essential for meaningful order visibility.</div></div>
+  <div class="note-row"><div class="note-num">5</div><div>Dev must query VBUP for the Sales Order document (LFSTA) AND separately for each Delivery document (WBSTA, FKSTA) — these are separate records in VBUP and cannot be retrieved in a single document query.</div></div>
+</div>
+
+<div class="footer">SFDC-26339 · Order Status Widget · Rachel Throop · Newell Brands IT OTC · July 25, 2026</div>
+</div>
+</body>
+</html>
