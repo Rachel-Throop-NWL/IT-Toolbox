@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids — What's Been Built</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAFAFA;color:#1e293b;font-size:15px;line-height:1.7}
+.wrap{max-width:920px;margin:0 auto;padding:32px 24px}
+.back{font-size:13px;color:#64748B;text-decoration:none;display:inline-block;margin-bottom:24px}
+.back:hover{color:#1E40AF}
+.page-title{font-size:28px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.page-sub{font-size:13px;color:#64748B;margin-bottom:8px}
+.jira-link{font-size:12px;color:#1E40AF;text-decoration:none;display:inline-block;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #E2E8F0;width:100%}
+
+/* Summary pills */
+.summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.pill{font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px}
+.pill-green{background:#D1FAE5;color:#065F46}
+.pill-amber{background:#FEF3C7;color:#92400E}
+.pill-blue{background:#DBEAFE;color:#1E3A8A}
+.pill-red{background:#FEE2E2;color:#991B1B}
+.pill-gray{background:#F1F5F9;color:#475569}
+
+/* Feature group */
+.group{margin-bottom:36px}
+.group-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.group-title::after{content:'';flex:1;height:1px;background:#E2E8F0}
+
+/* Feature row */
+.feat{display:flex;gap:0;background:#fff;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:8px;overflow:hidden}
+.feat-bar{width:4px;flex-shrink:0}
+.feat-bar.g{background:#059669}
+.feat-bar.a{background:#D97706}
+.feat-bar.b{background:#1E40AF}
+.feat-bar.r{background:#DC2626}
+.feat-bar.gray{background:#94A3B8}
+.feat-body{padding:12px 16px;flex:1;min-width:0}
+.feat-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px}
+.feat-title{font-size:14px;font-weight:600;color:#0D1B2A}
+.status-tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.st-rft{background:#D1FAE5;color:#065F46}
+.st-prog{background:#DBEAFE;color:#1E3A8A}
+.st-amber{background:#FEF3C7;color:#92400E}
+.st-red{background:#FEE2E2;color:#991B1B}
+.st-blocked{background:#F1F5F9;color:#475569}
+.feat-desc{font-size:13px;color:#475569;line-height:1.55}
+.feat-desc ul{margin:5px 0 0 16px}
+.feat-desc ul li{margin-bottom:3px}
+.feat-note{font-size:12px;margin-top:6px;font-style:italic}
+.feat-note.amber{color:#D97706}
+.feat-note.red{color:#DC2626}
+.feat-note.blue{color:#1E40AF}
+.feat-jira{font-size:11px;color:#94A3B8;margin-top:4px}
+
+/* Open items */
+.open-section{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:16px 20px;margin-bottom:32px}
+.open-section h3{font-size:13px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.open-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #FEE2E2;font-size:13px}
+.open-item:last-child{border-bottom:none}
+.oi-label{font-weight:600;color:#7F1D1D;min-width:28px}
+.oi-text{color:#334155;flex:1}
+.oi-owner{font-size:11px;color:#94A3B8;white-space:nowrap;margin-left:8px}
+
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="ebids-pop-index.html" class="back">← eBids & PoP</a>
+
+<div class="page-title">eBids — What's Been Built</div>
+<div class="page-sub">Live status across all build areas · Source: SFDC-25926 testing notes + Sandra demo sessions · Last updated Aug 6 2026</div>
+<a class="jira-link" href="https://newell-it.atlassian.net/browse/SFDC-25926" target="_blank">View testing task in Jira → SFDC-25926</a>
+
+<div class="summary">
+  <span class="pill pill-green">Ready for testing</span>
+  <span class="pill pill-amber">In progress / active dev</span>
+  <span class="pill pill-blue">With Rachel / under review</span>
+  <span class="pill pill-red">Gap / design needed</span>
+  <span class="pill pill-gray">Blocked — pending other work</span>
+</div>
+
+<!-- OPEN ITEMS -->
+<div class="open-section">
+  <h3>Outstanding items for Dev — Aug 6 2026</h3>
+  <div class="open-item"><div class="oi-label">1</div><div class="oi-text">Path not syncing with status — bid stage/path not updating correctly when status changes</div><div class="oi-owner">Vineet</div></div>
+  <div class="open-item"><div class="oi-label">2</div><div class="oi-text">Sync to SAP still showing on Quick Action menu — needs to be removed</div><div class="oi-owner">Vineet</div></div>
+  <div class="open-item"><div class="oi-label">3</div><div class="oi-text">Add Distributors placement — confirm where this landed on the page layout</div><div class="oi-owner">Venkat</div></div>
+  <div class="open-item"><div class="oi-label">4</div><div class="oi-text">Rebate program UI — needs to be an entry screen with dropdowns, not navigate into object to create. Old section on page layout needs to be removed. Note: does not include latest rebate approval scenarios — those are pending Sandra's confirmation.</div><div class="oi-owner">Vineet</div></div>
+  <div class="open-item"><div class="oi-label">5</div><div class="oi-text">Real data for Sandra UAT — push real data into client sandbox before Aug 24</div><div class="oi-owner">Dev team</div></div>
+  <div class="open-item"><div class="oi-label">6</div><div class="oi-text">Sandra permissions — confirm she is set up for UAT access or advise what is needed</div><div class="oi-owner">Vineet / Venkat</div></div>
+</div>
+
+<!-- BID RECORD -->
+<div class="group">
+<div class="group-title">Bid Record — Fields & Layout</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Bid record — core fields and layout</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">Bid record configured in Salesforce with all core fields. Includes eBid # (auto-number), status (defaults to New/Open, not on entry screen), End User (lookup to non-SAP account record type), Segment (pulled from Distributor account Industry field), Justification (required text field), Bid Source (Bid / Rebate Only / Bid + Rebate).</div>
+    <div class="feat-jira">SFDC-25059 / SFDC-25926</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Pricing fields — full set with role-based visibility</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">All pricing fields built and visible per role:
+      <ul>
+        <li><strong>All users:</strong> List Price · Target Price · Requested Price</li>
+        <li><strong>Bid Coordinator + Director+ only:</strong> Hard Floor · Soft Floor · Public Bid Price · Distributor Current Price</li>
+        <li><strong>Line-level fields:</strong> Line # · Units · IsCases · Requested Price · Competitor · Competitor Price · Approved Price · Disc/List · PoP Qty · PoP Sales</li>
+      </ul>
+    </div>
+    <div class="feat-jira">SFDC-25402 / SFDC-25926</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">IsCases logic</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">When IsCases is flagged, the system calculates Units × Standard Pack amount. Standard Pack pulls from the Product record. Only calculates when the checkbox is checked.</div>
+    <div class="feat-jira">SFDC-26220</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Field history tracking</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">All manually editable fields have field history tracking enabled. Sandra confirmed any field they can add or change manually should be tracked.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 28 comment</div>
+  </div>
+</div>
+
+</div>
+
+<!-- PRODUCTS -->
+<div class="group">
+<div class="group-title">Products & Product Add</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Product add — search and inline line entry</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">Product add flow built per Jul 23 UX mockup. Rep/Coordinator searches by material number or description. Results show list price and target price. Role-aware popup shows restricted pricing fields for Coordinator/Director. After Add to Bid, inline line entry opens for Units, IsCases, Requested Price, Competitor, Competitor Price. Line saved to the bid table.
+    </div>
+    <div class="feat-note amber">Known issue: requires a page refresh to see added products. Should not require refresh — with Dev to resolve.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 23 comment · <a href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-product-add-mockup.html" target="_blank" style="color:#1E40AF">View UX Mockup →</a></div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Competitor field and child object</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">Competitor is a line-level field on the bid (different materials have different competitors). Competitor list maintained as a child object — full competitor list provided to Dev Jul 23. Competitor Price is an adjacent editable field.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 23 comment</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Category field</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">Category pulls from the Product record. May also be stored on the Pricing Guidelines object. Decision pending with Venkat/Prasad.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 28 comment</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Pricing guidelines object</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">eBid Pricing Guidelines object stores Target Price, Soft Floor, Hard Floor, Public Bid Price per product. List price and target price pull from this object during product search. Upload via template in progress — errors being resolved with Dev.</div>
+    <div class="feat-jira">SFDC-25402</div>
+  </div>
+</div>
+
+</div>
+
+<!-- DISTRIBUTORS -->
+<div class="group">
+<div class="group-title">Distributors</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Add Distributors to a bid</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">Distributors can be added to a bid. Filter criteria confirmed: SAP Account RT, Account Group Z001, Sales Area US72-01, Divisions 40-45 (Sold-to Account Group). Known issue: requires a page refresh to see added distributors — with Dev to resolve.</div>
+    <div class="feat-note amber">Page placement still being confirmed with Dev.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 21 + Aug 3 comments</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Distributor current price sourcing</div><span class="status-tag st-amber">In progress</span></div>
+    <div class="feat-desc">Distributor current price needs to be sourced and displayed on the bid for Coordinator/Director. Source (button, batch, or integration) TBD with Venkat/Prasad. Batched SAP call behavior when pricing changes between calls is an open question — follow up with Sherry.</div>
+    <div class="feat-jira">SFDC-25395 / SFDC-25926</div>
+  </div>
+</div>
+
+</div>
+
+<!-- END USER -->
+<div class="group">
+<div class="group-title">End User</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">End User — search, add new, and contact</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">Requestors can search for an existing End User or create a new one. End User is a non-SAP account record type. When creating a new End User Account, the Industry field is required. Requestors also need the ability to create a new End User Contact record. Open question: can the End User record type be configured to exclude the Account-required validation rule for contacts?</div>
+    <div class="feat-jira">SFDC-25926 — Jul 20 comment</div>
+  </div>
+</div>
+
+</div>
+
+<!-- APPROVAL PROCESS -->
+<div class="group">
+<div class="group-title">Approval Process</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Approval process — Scenario A (Bid only)</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">Core approval process built. Bid reviewer manually initiates, sets approvers, submits. Status moves through Created → Under Review → Submitted for Approval → Approved / Rejected. Approval comments stored for audit purposes (concatenated — similar approach confirmed working for NA Sales).</div>
+    <div class="feat-note amber">Known issue: path not syncing with status — with Dev.</div>
+    <div class="feat-jira">SFDC-25604 / SFDC-25926</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar r"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Approval process — Rebate scenarios (B, C, D)</div><span class="status-tag st-red">Design pending</span></div>
+    <div class="feat-desc">Three rebate approval scenarios confirmed by Sandra Aug 6 — Rebate Only, Bid + Rebate together, Rebate added after approval. Approval routing matrix (who approves, what triggers escalation) not yet confirmed. Email sent to Sandra Aug 6. Do not build until routing is confirmed.</div>
+    <div class="feat-note red">DO NOT BUILD — awaiting Sandra's response</div>
+    <div class="feat-jira">SFDC-25926 — Aug 4 comment</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar r"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Amendment flow</div><span class="status-tag st-red">Build gap</span></div>
+    <div class="feat-desc">After the first amendment is approved the bid status goes to Approved but there is no option to request another amendment. Bids can have 10+ amendments. Additionally, when an amendment is committed and approved, distributors need an automated notification that the bid was updated.</div>
+    <div class="feat-jira">SFDC-25926 — Aug 4 comment</div>
+  </div>
+</div>
+
+</div>
+
+<!-- REBATE PROGRAMS -->
+<div class="group">
+<div class="group-title">Rebate Programs</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Rebate program entry and display</div><span class="status-tag st-amber">Active dev</span></div>
+    <div class="feat-desc">Rebate section built and gated by Bid Source field. Visible only when Bid Source = Rebate Only or Bid + Rebate. Entry screen with dropdowns in progress — programs should be listed on the bid after selection without navigating into a separate object. Old page layout section from original design to be removed. Multi-program support (SFDC-26151) is a separate story assigned to Vineet.</div>
+    <div class="feat-note amber">UI approach being revised per Aug 3 testing notes. Does not include rebate approval scenarios — those are pending Sandra.</div>
+    <div class="feat-jira">SFDC-26217 / SFDC-26151 / SFDC-25926</div>
+  </div>
+</div>
+
+</div>
+
+<!-- COMMUNICATION & COLLABORATION -->
+<div class="group">
+<div class="group-title">Communication & Collaboration</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Chatter enabled on bid objects</div><span class="status-tag st-rft">Ready for testing</span></div>
+    <div class="feat-desc">Chatter enabled across bid objects for communication and document storage. Financial documents stored securely. Used by Requestors, Coordinators, and Approvers to communicate within the bid record.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 21 comment</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar g"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Bid status — "being edited/amended" indicator</div><span class="status-tag st-amber">TBD</span></div>
+    <div class="feat-desc">Sandra requested a status indicator when a bid is actively being modified or amended so the team knows not to take action on it. Dev to mock up the amendment callout approach for Sandra's review.</div>
+    <div class="feat-jira">SFDC-25926 — Jul 28 comment</div>
+  </div>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<div class="group">
+<div class="group-title">Output & Export</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">PDF export</div><span class="status-tag st-amber">Dev in progress</span></div>
+    <div class="feat-desc">PDF export of completed bid. Additional Notes field updated to inform users which content will appear on the PDF. Line Number label updated for clarity (was "Item" — removed as redundant). Jira spec updated and turned over to Dev.</div>
+    <div class="feat-jira">SFDC-26218</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar b"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">GM% / P&L formula</div><span class="status-tag st-amber">With Rachel</span></div>
+    <div class="feat-desc">GM% formula received from Bill Hess. Jira spec updated and ready to turn over to Dev.</div>
+    <div class="feat-jira">SFDC-26248</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar b"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Who Won / Tabulations</div><span class="status-tag st-amber">With Rachel</span></div>
+    <div class="feat-desc">Captures who won the bid and tabulation results after award. Under review — mockup available.</div>
+    <div class="feat-jira">SFDC-26219 · <a href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-who-won-mockup.html" target="_blank" style="color:#1E40AF">View mockup →</a></div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar a"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">List price sourcing (SAP → Salesforce)</div><span class="status-tag st-amber">Dev in progress</span></div>
+    <div class="feat-desc">List price pulled from SAP pricing conditions as reference data. No pricing written back to SAP — all eBids is after-sales. Solution approach being finalized with Venkat/Prasad.</div>
+    <div class="feat-jira">SFDC-25395</div>
+  </div>
+</div>
+
+</div>
+
+<!-- BLOCKED -->
+<div class="group">
+<div class="group-title">Blocked — Pending Other Work</div>
+
+<div class="feat">
+  <div class="feat-bar gray"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">UAT — Sandra</div><span class="status-tag st-blocked">Blocked</span></div>
+    <div class="feat-desc">Target Aug 24. Blocked on: real data load into sandbox, Sandra permissions confirmation, and resolution of open testing items above.</div>
+    <div class="feat-jira">SFDC-25062</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar gray"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">Historical data migration</div><span class="status-tag st-blocked">Blocked</span></div>
+    <div class="feat-desc">Migration of historical bid data from legacy grassroots system. Blocked on data mapping requirements and core build completion.</div>
+    <div class="feat-jira">SFDC-25061 / SFDC-25057</div>
+  </div>
+</div>
+
+<div class="feat">
+  <div class="feat-bar gray"></div>
+  <div class="feat-body">
+    <div class="feat-hdr"><div class="feat-title">User training and documentation</div><span class="status-tag st-blocked">Blocked</span></div>
+    <div class="feat-desc">Training materials and sessions for end users. Blocked on UAT completion and finalization of build.</div>
+    <div class="feat-jira">SFDC-25063</div>
+  </div>
+</div>
+
+</div>
+
+<p style="font-size:13px;color:#64748B;margin-bottom:8px">For business requirements behind these features → <a href="ebids-business-requirements.html" style="color:#1E40AF">Business Requirements</a></p>
+<p style="font-size:13px;color:#64748B">For approval process flows in detail → <a href="ebid-approval-scenarios.html" style="color:#1E40AF">Approval Scenarios</a></p>
+
+<footer>Rachel Throop · IT Manager, Salesforce &amp; SAP OTC · Newell Brands · SFDC-25926 · Updated Aug 6 2026 · <a href="ebids-pop-index.html" style="color:#94A3B8">← eBids &amp; PoP</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids & PoP Migration — Project Documents</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#1e293b;font-size:15px;line-height:1.6}
+.wrap{max-width:1020px;margin:0 auto;padding:28px 24px}
+
+/* Header */
+.page-hdr{background:#0D1B2A;border-radius:12px;padding:28px 32px;margin-bottom:28px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.page-hdr-left h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:4px}
+.page-hdr-left p{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px}
+.page-hdr-stat-row{display:flex;gap:20px;flex-wrap:wrap}
+.hdr-stat{text-align:left}
+.hdr-stat .val{font-size:18px;font-weight:700}
+.hdr-stat .lbl{font-size:11px;color:rgba(255,255,255,0.45);margin-top:1px}
+.hdr-stat.amber .val{color:#FCD34D}
+.hdr-stat.red .val{color:#FCA5A5}
+.hdr-stat.green .val{color:#6EE7B7}
+.hdr-stat.gray .val{color:rgba(255,255,255,0.6)}
+.status-chips{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.chip{font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;white-space:nowrap;text-align:center}
+.chip-amber{background:rgba(217,119,6,0.2);color:#FCD34D;border:1px solid rgba(217,119,6,0.3)}
+.chip-gray{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12)}
+
+/* Alert bar */
+.alert-bar{background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:11px 16px;margin-bottom:24px;font-size:13px;color:#78350F;display:flex;gap:10px;align-items:flex-start}
+.alert-bar strong{color:#92400E}
+
+/* Section */
+.section{margin-bottom:32px}
+.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-hdr h2{font-size:15px;font-weight:700;color:#0D1B2A;text-transform:uppercase;letter-spacing:.06em}
+.section-hdr .section-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:#F1F5F9;color:#475569}
+.section-hdr .divider{flex:1;height:1px;background:#E2E8F0}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card-grid.two{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:16px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;transition:box-shadow .15s,border-color .15s;cursor:pointer}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.06);border-color:#BAD6F7;text-decoration:none}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.card-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.cb-new{background:#EDE9FE;color:#5B21B6}
+.cb-updated{background:#DBEAFE;color:#1E3A8A}
+.cb-active{background:#D1FAE5;color:#065F46}
+.cb-pending{background:#FEF3C7;color:#92400E}
+.cb-open{background:#FEE2E2;color:#991B1B}
+.cb-ref{background:#F1F5F9;color:#475569}
+.card-title{font-size:14px;font-weight:700;color:#0D1B2A;line-height:1.3}
+.card-desc{font-size:12px;color:#64748B;line-height:1.5}
+.card-jira{font-size:11px;color:#94A3B8;margin-top:2px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-top:8px;border-top:1px solid #F1F5F9}
+.card-footer-label{font-size:11px;color:#94A3B8}
+.card-footer-arrow{font-size:12px;color:#1E40AF}
+
+/* eBids / PoP section colors */
+.section-ebids .card{border-top:3px solid #1E40AF}
+.section-pop .card{border-top:3px solid #5B21B6}
+.section-arch .card{border-top:3px solid #0F6E56}
+.section-ref .card{border-top:3px solid #64748B}
+
+/* Open items banner */
+.open-banner{background:#fff;border:1.5px solid #FECACA;border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.open-banner h3{font-size:14px;font-weight:700;color:#991B1B;margin-bottom:10px}
+.open-item-row{display:flex;align-items:baseline;gap:10px;padding:5px 0;border-bottom:1px solid #FEF2F2;font-size:13px}
+.open-item-row:last-child{border-bottom:none}
+.oi-dot{width:6px;height:6px;border-radius:50%;background:#DC2626;flex-shrink:0;margin-top:5px}
+.oi-text{color:#334155;flex:1}
+.oi-owner{font-size:11px;color:#94A3B8;white-space:nowrap}
+
+/* Contact row */
+.contact-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.contact-pill{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:5px 14px;font-size:12px;color:#334155}
+.contact-pill strong{color:#0D1B2A}
+
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+
+@media(max-width:700px){
+  .card-grid,.card-grid.two{grid-template-columns:1fr}
+  .page-hdr{flex-direction:column}
+  .status-chips{flex-direction:row}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="page-hdr">
+  <div class="page-hdr-left">
+    <h1>eBids &amp; PoP Migration</h1>
+    <p>Newell Brands · IT Order to Cash · All project documentation · Updated Aug 6 2026</p>
+    <div class="page-hdr-stat-row">
+      <div class="hdr-stat green"><div class="val">Dec 1, 2026</div><div class="lbl">Go-live target</div></div>
+      <div class="hdr-stat amber"><div class="val">Aug 24, 2026</div><div class="lbl">UAT target</div></div>
+      <div class="hdr-stat red"><div class="val">4</div><div class="lbl">Open design gaps</div></div>
+      <div class="hdr-stat gray"><div class="val">SFDC-25055 / SFDC-25709</div><div class="lbl">Epic Jiras</div></div>
+    </div>
+  </div>
+  <div class="status-chips">
+    <div class="chip chip-amber">eBids — In Development</div>
+    <div class="chip chip-gray">PoP — In Design</div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-bar">
+  <span>⚠️</span>
+  <div><strong>Design items pending before Dev can proceed:</strong> Rebate approval routing matrix · Amendment flow · Security (rep bid visibility) · Batched SAP call. See Open Items below.</div>
+</div>
+
+<!-- OPEN ITEMS -->
+<div class="open-banner">
+  <h3>Open items — action required</h3>
+  <div class="open-item-row"><div class="oi-dot"></div><div class="oi-text"><strong>Rebate approval routing matrix</strong> — who approves Rebate Only and Bid + Rebate scenarios? Required before Dev can build. Email sent to Sandra Aug 6.</div><div class="oi-owner">Sandra Smith</div></div>
+  <div class="open-item-row"><div class="oi-dot"></div><div class="oi-text"><strong>Who completes the rebate section?</strong> — rep, Segment Team, or depends on scenario? Affects field-level permissions.</div><div class="oi-owner">Sandra Smith</div></div>
+  <div class="open-item-row"><div class="oi-dot"></div><div class="oi-text"><strong>Amendment flow gap</strong> — after first amendment is approved, no option to request another. Bids can have 10+ amendments. Awaiting Dev solution.</div><div class="oi-owner">Vineet Kumar</div></div>
+  <div class="open-item-row"><div class="oi-dot"></div><div class="oi-text"><strong>Security — rep bid visibility</strong> — can a sales rep see another rep's bids? Decision needed before security model can be built.</div><div class="oi-owner">Karen Chavis</div></div>
+  <div class="open-item-row"><div class="oi-dot"></div><div class="oi-text"><strong>Batched SAP call</strong> — what happens to distributor pricing when pricing changes between batch calls? Follow up with Sherry.</div><div class="oi-owner">Rachel Throop</div></div>
+</div>
+
+<!-- OVERVIEW & STATUS -->
+<div class="section">
+  <div class="section-hdr"><h2>Overview &amp; Status</h2><div class="divider"></div></div>
+  <div class="card-grid two">
+    <a class="card section-arch" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebids-pop-project.html" target="_blank">
+      <div class="card-top"><div class="card-icon">📊</div><span class="card-badge cb-updated">Updated</span></div>
+      <div class="card-title">eBids &amp; PoP Project Hub</div>
+      <div class="card-desc">Project overview · scope · key contacts · status · Jira links · epic index</div>
+      <div class="card-footer"><span class="card-footer-label">In Development</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-arch" href="ebid-product-spec.html" target="_blank">
+      <div class="card-top"><div class="card-icon">📋</div><span class="card-badge cb-new">New Aug 6</span></div>
+      <div class="card-title">eBids Product Spec</div>
+      <div class="card-desc">What was built · how it works · business rules · known gaps · decision log · source of truth</div>
+      <div class="card-footer"><span class="card-footer-label">Version 1.0 Draft</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- EBIDS PROCESS FLOWS -->
+<div class="section section-ebids">
+  <div class="section-hdr"><h2>eBids — Flows &amp; Specs</h2><span class="section-tag">eBids</span><div class="divider"></div></div>
+  <div class="card-grid">
+    <a class="card section-ebids" href="ebid-approval-scenarios.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🔀</div><span class="card-badge cb-new">New Aug 6</span></div>
+      <div class="card-title">Approval Process — All Scenarios</div>
+      <div class="card-desc">End-to-end flows for all 4 scenarios · A Bid only · B Rebate only · C Bid + rebate · D Rebate added later</div>
+      <div class="card-jira">SFDC-25926</div>
+      <div class="card-footer"><span class="card-footer-label">4 scenarios · bid routing matrix</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="ebid-approval-process-spec.html" target="_blank">
+      <div class="card-top"><div class="card-icon">⚙️</div><span class="card-badge cb-updated">Updated Aug 6</span></div>
+      <div class="card-title">Approval Process — Dev Spec</div>
+      <div class="card-desc">For Vineet · status flip rule · audit log · validation · acceptance criteria · rebate scenarios added</div>
+      <div class="card-jira">SFDC-25926</div>
+      <div class="card-footer"><span class="card-footer-label">Pending Dev</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-approval-flow.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🏊</div><span class="card-badge cb-ref">Jul 16</span></div>
+      <div class="card-title">Approval Process Swimlane</div>
+      <div class="card-desc">Full approval flow by actor · prior version · see new Scenarios page for updated flows</div>
+      <div class="card-jira">SFDC-25604</div>
+      <div class="card-footer"><span class="card-footer-label">Updated Jul 16</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-approval-ux-mockup.html" target="_blank">
+      <div class="card-top"><div class="card-icon">✅</div><span class="card-badge cb-ref">Reference</span></div>
+      <div class="card-title">Approval Process Mockup</div>
+      <div class="card-desc">Coordinator + approver Lightning views · interactive UX mockup</div>
+      <div class="card-jira">SFDC-25604</div>
+      <div class="card-footer"><span class="card-footer-label">UX mockup</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-product-add-mockup.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🔍</div><span class="card-badge cb-ref">Jul 23</span></div>
+      <div class="card-title">Product Add Mockup</div>
+      <div class="card-desc">Interactive search · role-based pricing · line entry</div>
+      <div class="card-jira">SFDC-25604</div>
+      <div class="card-footer"><span class="card-footer-label">UX mockup</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-who-won-mockup.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🏆</div><span class="card-badge cb-pending">In Progress</span></div>
+      <div class="card-title">Who Won / Tabulations Mockup</div>
+      <div class="card-desc">Public bid type · award results · tabulation screen</div>
+      <div class="card-jira">SFDC-26219</div>
+      <div class="card-footer"><span class="card-footer-label">With Rachel</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- REBATE -->
+<div class="section section-ebids">
+  <div class="section-hdr"><h2>eBids — Rebate Programs</h2><span class="section-tag">eBids · Rebate</span><div class="divider"></div></div>
+  <div class="card-grid two">
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-rebate-program-mockup.html" target="_blank">
+      <div class="card-top"><div class="card-icon">💰</div><span class="card-badge cb-updated">Jul 20</span></div>
+      <div class="card-title">Rebate Programs Mockup</div>
+      <div class="card-desc">UX mockup v3 · standard + rebate-only bid · entry screen with dropdowns · programs listed on bid</div>
+      <div class="card-jira">SFDC-26217</div>
+      <div class="card-footer"><span class="card-footer-label">Updated Jul 20</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ebids" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-rebate-program-dev-spec.html" target="_blank">
+      <div class="card-top"><div class="card-icon">⚙️</div><span class="card-badge cb-updated">Jul 20</span></div>
+      <div class="card-title">Rebate Programs Dev Spec</div>
+      <div class="card-desc">Objects · fields · layout · approval scenarios · rebate-only flow</div>
+      <div class="card-jira">SFDC-26217</div>
+      <div class="card-footer"><span class="card-footer-label">Updated Jul 20</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ARCHITECTURE & DECISIONS -->
+<div class="section section-arch">
+  <div class="section-hdr"><h2>Architecture &amp; Decisions</h2><span class="section-tag">Design</span><div class="divider"></div></div>
+  <div class="card-grid">
+    <a class="card section-arch" href="ebid-pricing-routing-guide-updated.html" target="_blank">
+      <div class="card-top"><div class="card-icon">📋</div><span class="card-badge cb-updated">Updated Aug 6</span></div>
+      <div class="card-title">Pricing &amp; Approval Routing Guide</div>
+      <div class="card-desc">All routing scenarios · key contacts · rebate approval section added · based on Sandra's July 2026 guidelines</div>
+      <div class="card-jira">SFDC-25604 / SFDC-25926</div>
+      <div class="card-footer"><span class="card-footer-label">Routing reference</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-arch" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/list-price-architecture-review.html" target="_blank">
+      <div class="card-top"><div class="card-icon">💲</div><span class="card-badge cb-pending">Venkat exploring</span></div>
+      <div class="card-title">List Price Architecture Review</div>
+      <div class="card-desc">TVARV vs Z table vs Order Simulate · decision doc · SAP to Salesforce sourcing options</div>
+      <div class="card-jira">SFDC-25395</div>
+      <div class="card-footer"><span class="card-footer-label">Decision pending</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-arch" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-open-requirements.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🔓</div><span class="card-badge cb-open">Open items</span></div>
+      <div class="card-title">Open Requirements</div>
+      <div class="card-desc">Post dev-call open items · distributor flag · SAP data · Chatter visibility</div>
+      <div class="card-jira">SFDC-25926</div>
+      <div class="card-footer"><span class="card-footer-label">8 open items</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- POP -->
+<div class="section section-pop">
+  <div class="section-hdr"><h2>PoP Migration</h2><span class="section-tag">PoP</span><div class="divider"></div></div>
+  <div class="card-grid">
+    <a class="card section-pop" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/SFDC-25708-UI-Mockup.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🌐</div><span class="card-badge cb-pending">Working session needed</span></div>
+      <div class="card-title">PoP Community UI Mockup</div>
+      <div class="card-desc">Clickable community design · distributor portal · claim entry · search · upload history</div>
+      <div class="card-jira">SFDC-25708</div>
+      <div class="card-footer"><span class="card-footer-label">In Design</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-pop" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/SFDC-25708-PoP-Community-Design-Spec.html" target="_blank">
+      <div class="card-top"><div class="card-icon">⚙️</div><span class="card-badge cb-active">Spec complete</span></div>
+      <div class="card-title">PoP Community Design Spec</div>
+      <div class="card-desc">Full technical spec for Venkat · sections · field tables · validation rules · processing flow</div>
+      <div class="card-jira">SFDC-25708</div>
+      <div class="card-footer"><span class="card-footer-label">For Venkat</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-pop" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/pop-sap-integration-deck.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🔗</div><span class="card-badge cb-active">Stories created</span></div>
+      <div class="card-title">PoP SAP Integration Deck</div>
+      <div class="card-desc">Stories A, B, D, E, F · billing data pull · ZCMIR pull · credit memo push · integration flow</div>
+      <div class="card-jira">SFDC-25060 · SFDC-25966</div>
+      <div class="card-footer"><span class="card-footer-label">SAP integration</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- REFERENCE -->
+<div class="section section-ref">
+  <div class="section-hdr"><h2>Reference</h2><span class="section-tag">Reference</span><div class="divider"></div></div>
+  <div class="card-grid">
+    <a class="card section-ref" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebids-pop-exec-summary.html" target="_blank">
+      <div class="card-top"><div class="card-icon">📄</div><span class="card-badge cb-ref">Reference</span></div>
+      <div class="card-title">Exec Summary</div>
+      <div class="card-desc">Executive summary for eBids &amp; PoP migration · scope · timeline · key decisions</div>
+      <div class="card-footer"><span class="card-footer-label">Executive reference</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ref" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebid-approval-flow-changes.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🔄</div><span class="card-badge cb-ref">Jul 16</span></div>
+      <div class="card-title">Approval — What Changed</div>
+      <div class="card-desc">Dev change log · what was removed · updated · added from the prior version</div>
+      <div class="card-jira">SFDC-25604</div>
+      <div class="card-footer"><span class="card-footer-label">Change log</span><span class="card-footer-arrow">→</span></div>
+    </a>
+    <a class="card section-ref" href="https://rachel-throop-nwl.github.io/IT-Toolbox/projects/ebids-pop-jira-board.html" target="_blank">
+      <div class="card-top"><div class="card-icon">🗂️</div><span class="card-badge cb-active">Live board</span></div>
+      <div class="card-title">Jira Board — eBids &amp; PoP</div>
+      <div class="card-desc">Visual Jira board for all eBids &amp; PoP tickets · current sprint · status at a glance</div>
+      <div class="card-footer"><span class="card-footer-label">Live Jira data</span><span class="card-footer-arrow">→</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- CONTACTS -->
+<div class="section">
+  <div class="section-hdr"><h2>Key Contacts</h2><div class="divider"></div></div>
+  <div class="contact-row">
+    <div class="contact-pill"><strong>Rachel Throop</strong> · IT Manager · Project lead</div>
+    <div class="contact-pill"><strong>Karen Chavis</strong> · Business Lead · Sales Ops sponsor</div>
+    <div class="contact-pill"><strong>Sandra Smith</strong> · Business SME · Bid &amp; Map Execution · UAT</div>
+    <div class="contact-pill"><strong>Venkat Kuttua</strong> · Dev Lead · Salesforce</div>
+    <div class="contact-pill"><strong>Vineet Kumar</strong> · Developer · eBids build</div>
+    <div class="contact-pill"><strong>Bill Hess</strong> · Business SME · GM% / pricing</div>
+  </div>
+</div>
+
+<footer>eBids &amp; PoP Migration · Newell Brands IT Order to Cash · Rachel Throop · rachel.throop@newellco.com · Updated Aug 6 2026</footer>
+</div>
+</body>
+</html>

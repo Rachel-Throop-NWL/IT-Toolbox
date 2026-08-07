@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids — Business Requirements</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAFAFA;color:#1e293b;font-size:15px;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:32px 24px}
+.back{font-size:13px;color:#64748B;text-decoration:none;display:inline-block;margin-bottom:24px}
+.back:hover{color:#1E40AF}
+.page-title{font-size:28px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.page-sub{font-size:13px;color:#64748B;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid #E2E8F0}
+.req-section{margin-bottom:40px}
+.req-section h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:16px}
+.req{background:#fff;border:1px solid #E2E8F0;border-radius:8px;padding:18px 20px;margin-bottom:10px}
+.req-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.req-title{font-size:15px;font-weight:600;color:#0D1B2A}
+.req-id{font-size:11px;font-weight:600;color:#94A3B8;white-space:nowrap;margin-top:2px}
+.req-body{font-size:13px;color:#475569;line-height:1.6}
+.req-body ul{margin:8px 0 0 16px}
+.req-body ul li{margin-bottom:4px}
+.req-note{font-size:12px;color:#D97706;margin-top:8px;font-style:italic}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-left:8px;vertical-align:middle;white-space:nowrap}
+.b-must{background:#FEE2E2;color:#991B1B}
+.b-should{background:#FEF3C7;color:#92400E}
+.b-open{background:#EDE9FE;color:#4C1D95}
+.divider{height:1px;background:#E2E8F0;margin:32px 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="ebids-pop-index.html" class="back">← eBids & PoP</a>
+
+<div class="page-title">eBids — Business Requirements</div>
+<div class="page-sub">What the business needs the system to do · Last updated Aug 6 2026 · Owner: Rachel Throop · Source: Business sessions with Sandra Smith and Karen Chavis</div>
+
+<!-- BID CREATION -->
+<div class="req-section">
+<h2>Bid Creation</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Reps can create a bid record in Salesforce <span class="badge b-must">Must have</span></div><div class="req-id">BR-01</div></div>
+  <div class="req-body">A sales rep or coordinator can create a new bid record. The record captures the end user, the distributor(s), the products and pricing being requested, and the bid type.</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Bid Source drives what type of bid is being created <span class="badge b-must">Must have</span></div><div class="req-id">BR-02</div></div>
+  <div class="req-body">A Bid Source field on the record determines the type:
+    <ul>
+      <li><strong>Bid</strong> — pricing only, no rebate</li>
+      <li><strong>Rebate Only</strong> — a rebate program only, no bid pricing. Gets a bid number. Lives in the same search screen as bids.</li>
+      <li><strong>Bid + Rebate</strong> — both pricing and a rebate program on the same record</li>
+    </ul>
+  </div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Rebate section is only visible when relevant <span class="badge b-must">Must have</span></div><div class="req-id">BR-03</div></div>
+  <div class="req-body">The rebate section on the bid record is hidden when Bid Source = Bid. It becomes visible and required when Bid Source = Rebate Only or Bid + Rebate. This keeps the record clean for bid-only submissions.</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Bid Source can be changed after creation <span class="badge b-must">Must have</span></div><div class="req-id">BR-04</div></div>
+  <div class="req-body">A rep or coordinator can change Bid Source from Bid to Bid + Rebate after the record is created — for example, when a rebate program needs to be added to an existing bid. When this happens on an already-approved record, the system flags it for re-review.</div>
+</div>
+
+</div>
+
+<!-- PRICING -->
+<div class="req-section">
+<h2>Pricing</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">List price sourced from SAP into Salesforce <span class="badge b-must">Must have</span></div><div class="req-id">BR-05</div></div>
+  <div class="req-body">The system pulls list price from SAP so reps can see the starting price when building a bid. This is reference data only — no pricing changes are written back to SAP. All eBids is after-sales pricing.</div>
+  <div class="req-note">Solution proposed · Dev in progress · SFDC-25395</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">GM% formula calculated and visible on the bid <span class="badge b-must">Must have</span></div><div class="req-id">BR-06</div></div>
+  <div class="req-body">The system calculates GM% per line item based on the pricing requested. The bid reviewer uses GM% to determine the appropriate approval routing — bids below 15% GM or below the hard floor require escalation.</div>
+  <div class="req-note">Formula received from Bill Hess · Jira updated · awaiting Dev handoff · SFDC-26248</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">IsCases logic applied to product lines <span class="badge b-must">Must have</span></div><div class="req-id">BR-07</div></div>
+  <div class="req-body">Certain product lines are sold in cases. The system must apply the correct case-level pricing logic when building the bid.</div>
+  <div class="req-note">With Dev · SFDC-26220</div>
+</div>
+
+</div>
+
+<!-- REBATE PROGRAMS -->
+<div class="req-section">
+<h2>Rebate Programs</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Rebate programs entered via a simple entry screen <span class="badge b-must">Must have</span></div><div class="req-id">BR-08</div></div>
+  <div class="req-body">The rebate section presents a clean entry screen with dropdowns. The user selects the rebate program(s) — they do not create a new object or navigate away from the bid record. Selected programs are listed on the bid after entry.</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">All rebate programs require an approval process <span class="badge b-must">Must have</span></div><div class="req-id">BR-09</div></div>
+  <div class="req-body">Every rebate program — whether standalone or on a bid — goes through system routing for approval. Even rebates discussed and agreed offline must route through the system for audit purposes. The approval chain for rebates is different from bid pricing approval.</div>
+  <div class="req-note">Rebate routing matrix pending Sandra's confirmation · email sent Aug 6 2026</div>
+</div>
+
+</div>
+
+<!-- APPROVAL PROCESS -->
+<div class="req-section">
+<h2>Approval Process</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">One approval process handles all scenarios <span class="badge b-must">Must have</span></div><div class="req-id">BR-10</div></div>
+  <div class="req-body">There is one approval process in Salesforce. The bid reviewer (coordinator) manually initiates approval and controls the approver list. The system does not auto-assign approvers. The bid reviewer follows the routing guidelines to determine who approves each submission.</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Four approval scenarios must be supported <span class="badge b-must">Must have</span></div><div class="req-id">BR-11</div></div>
+  <div class="req-body">
+    <ul>
+      <li><strong>A — Bid only:</strong> bid pricing submitted and approved. Routing by dollar volume, region, GM%, and end user segment.</li>
+      <li><strong>B — Rebate only:</strong> rebate program submitted without a bid. Gets a bid number. Lives in bid search screen.</li>
+      <li><strong>C — Bid + rebate together:</strong> both submitted in one cycle. Follows rebate routing. Approved simultaneously.</li>
+      <li><strong>D — Rebate added to an approved bid:</strong> bid was already approved. Rebate section is filled in later. Status returns to Under Review. Only the rebate portion re-routes for approval — bid pricing does not re-approve.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Approval history shows what was approved in each cycle <span class="badge b-must">Must have</span></div><div class="req-id">BR-12</div></div>
+  <div class="req-body">Each submission is logged with the approval type (Bid / Rebate Only / Bid + Rebate) so there is a clear audit trail. Sandra and the business team require this for compliance purposes.</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Status reflects the current state of the record at all times <span class="badge b-must">Must have</span></div><div class="req-id">BR-13</div></div>
+  <div class="req-body">Statuses: Created → Under Review → Submitted for Approval → Rejected → Approved. When a rebate is added to an Approved record, status automatically returns to Under Review so the bid reviewer knows action is needed.</div>
+</div>
+
+</div>
+
+<!-- AMENDMENTS -->
+<div class="req-section">
+<h2>Amendments</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Bids support multiple amendment cycles <span class="badge b-must">Must have</span></div><div class="req-id">BR-14</div></div>
+  <div class="req-body">A bid can have 10 or more amendments over its lifetime. After each amendment is approved, the rep must be able to request another amendment. The current build only supports one amendment cycle — this is a known gap that must be resolved.</div>
+  <div class="req-note">Build gap · logged in SFDC-25926 · awaiting Dev solution</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Distributors notified when an amendment is committed <span class="badge b-must">Must have</span></div><div class="req-id">BR-15</div></div>
+  <div class="req-body">When an amendment is committed and approved, distributors linked to the bid receive an automated notification that the bid has been updated. The notification does not need to include the details of what changed — just that the bid was updated.</div>
+  <div class="req-note">Not yet designed · SFDC-25926</div>
+</div>
+
+</div>
+
+<!-- DISTRIBUTORS -->
+<div class="req-section">
+<h2>Distributors</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Distributors can be added to a bid <span class="badge b-must">Must have</span></div><div class="req-id">BR-16</div></div>
+  <div class="req-body">One or more distributors can be linked to a bid record. The placement of the Add Distributors function on the record is under review.</div>
+  <div class="req-note">Placement TBD · raised in testing Aug 3 2026</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Distributor pricing sourced via batched SAP call <span class="badge b-open">Open question</span></div><div class="req-id">BR-17</div></div>
+  <div class="req-body">Distributor pricing is retrieved from SAP via a batched call. An open question exists about what happens to distributor pricing on the bid when pricing changes between batch calls.</div>
+  <div class="req-note">Follow up with Sherry · not yet scheduled</div>
+</div>
+
+</div>
+
+<!-- OUTPUT & EXPORT -->
+<div class="req-section">
+<h2>Output &amp; Export</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Bid can be exported as a PDF <span class="badge b-must">Must have</span></div><div class="req-id">BR-18</div></div>
+  <div class="req-body">A completed and approved bid can be exported as a PDF for sharing with the customer or distributor. The PDF format and fields are being finalized with Sandra.</div>
+  <div class="req-note">Jira turned over · Dev in progress · SFDC-26218</div>
+</div>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Who Won / Tabulations tracked on the bid <span class="badge b-must">Must have</span></div><div class="req-id">BR-19</div></div>
+  <div class="req-body">After a bid is awarded, the system captures who won the bid and the tabulation results. This is used for reporting and post-bid analysis.</div>
+  <div class="req-note">With Rachel · SFDC-26219</div>
+</div>
+
+</div>
+
+<!-- SECURITY -->
+<div class="req-section">
+<h2>Security &amp; Access</h2>
+
+<div class="req">
+  <div class="req-hdr"><div class="req-title">Sales rep bid visibility decision needed <span class="badge b-open">Decision pending</span></div><div class="req-id">BR-20</div></div>
+  <div class="req-body">A decision is needed: can a sales rep see another rep's bids? This determines the sharing model and field-level security configuration. The build cannot proceed on the security layer until this is confirmed.</div>
+  <div class="req-note">Owner: Karen Chavis · Status: Open</div>
+</div>
+
+</div>
+
+<div class="divider"></div>
+<p style="font-size:13px;color:#64748B">For current build status against these requirements, see: <a href="ebids-what-was-built.html" style="color:#1E40AF">What's Been Built →</a></p>
+
+<footer>Rachel Throop · IT Manager, Salesforce &amp; SAP OTC · Newell Brands · Updated Aug 6 2026 · <a href="ebids-pop-index.html" style="color:#94A3B8">← eBids &amp; PoP</a></footer>
+</div>
+</body>
+</html>
