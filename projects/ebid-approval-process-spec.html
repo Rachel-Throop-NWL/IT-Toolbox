@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids Approval Process — Dev Spec · IT Toolbox</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAFAFA;color:#1e293b;font-size:15px;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;padding:24px}
+.back{font-size:13px;color:#64748B;text-decoration:none;display:inline-block;margin-bottom:20px}
+.back:hover{color:#1E40AF}
+.hdr{border-bottom:3px solid #1E40AF;padding-bottom:16px;margin-bottom:28px}
+.hdr h1{font-size:26px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.hdr .sub{font-size:13px;color:#64748B}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;margin-left:8px;vertical-align:middle}
+.badge-amber{background:#FEF3C7;color:#92400E}
+.badge-red{background:#FEE2E2;color:#991B1B}
+.badge-green{background:#D1FAE5;color:#065F46}
+.badge-blue{background:#DBEAFE;color:#1E3A8A}
+.badge-gray{background:#F1F5F9;color:#475569}
+section{margin-bottom:36px}
+h2{font-size:18px;font-weight:700;color:#0D1B2A;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid #E2E8F0}
+h3{font-size:15px;font-weight:600;color:#1E40AF;margin:16px 0 8px}
+p{margin-bottom:10px;color:#334155}
+pre{background:#0F172A;color:#E2E8F0;padding:14px;border-radius:6px;font-size:12px;overflow-x:auto;margin:10px 0;line-height:1.5}
+.note{background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#78350F}
+.alert{background:#FEE2E2;border-left:4px solid #DC2626;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#7F1D1D}
+.info{background:#EFF6FF;border-left:4px solid #1E40AF;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#1E3A8A}
+.success{background:#D1FAE5;border-left:4px solid #059669;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#064E3B}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#1E40AF;color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #E2E8F0;vertical-align:top}
+tr:nth-child(even) td{background:#F8FAFC}
+.ac-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #F1F5F9}
+.ac-item:last-child{border-bottom:none}
+.ac-num{background:#1E40AF;color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ac-text{font-size:13px;color:#334155}
+.open-q{background:#fff;border:1.5px solid #DC2626;border-radius:8px;padding:14px;margin:8px 0}
+.open-q .q-num{font-size:11px;font-weight:700;color:#DC2626;margin-bottom:4px}
+.open-q .q-text{font-size:13px;color:#1e293b;margin-bottom:4px}
+.open-q .q-owner{font-size:11px;color:#64748B}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="../index.html" class="back">← IT Toolbox</a>
+
+<div class="hdr">
+  <h1>eBids Approval Process — Dev Spec <span class="badge badge-amber">Updated Aug 6 2026</span></h1>
+  <div class="sub">For Vineet Kumar (Dev) · SFDC-25926 · Replaces July 2026 version · Rebate scenarios added</div>
+</div>
+
+<!-- CONTEXT -->
+<section>
+  <h2>Context — what exists today</h2>
+  <table>
+    <tr><th>Item</th><th>Current state</th></tr>
+    <tr><td>Approval process</td><td>One approval process in Salesforce. Bid reviewer initiates manually and controls approvers.</td></tr>
+    <tr><td>Bid Source field</td><td>Picklist already exists: Bid / Rebate Only / Bid + Rebate</td></tr>
+    <tr><td>Rebate section</td><td>Hidden until Bid Source = Rebate Only or Bid + Rebate — already works</td></tr>
+    <tr><td>Edit access</td><td>Anyone with edit access can change Bid Source after creation</td></tr>
+  </table>
+  <p>Current statuses: <code>Created → Under Review → Submitted for Approval → Rejected → Approved</code></p>
+</section>
+
+<!-- THE GAP -->
+<section>
+  <h2>The gap — what is missing</h2>
+  <table>
+    <tr><th>#</th><th>Gap</th><th>Impact</th></tr>
+    <tr><td>1</td><td>When Bid Source changes to Rebate Only or Bid + Rebate on an Approved record — status does not flip back</td><td>Bid reviewer has no signal that re-approval is needed</td></tr>
+    <tr><td>2</td><td>Approval history does not capture what type was approved in each cycle</td><td>No audit trail of whether approval covered Bid, Rebate, or both</td></tr>
+    <tr><td>3</td><td>No validation preventing submission when Bid Source = Rebate but rebate section is empty</td><td>Approvers can receive incomplete records</td></tr>
+  </table>
+</section>
+
+<!-- CHANGE 1 -->
+<section>
+  <h2>Change 1 — Status flip rule</h2>
+  <p>When <code>Bid_Source__c</code> changes to <code>Rebate Only</code> or <code>Bid + Rebate</code> on a record that is already <code>Approved</code>, auto-flip the status to <code>Under Review</code>.</p>
+  <pre>IF Bid_Source__c CHANGED
+AND new value IN ('Rebate Only', 'Bid + Rebate')
+AND Status__c = 'Approved'
+THEN Status__c = 'Under Review'</pre>
+  <div class="info">This covers Scenario D — rebate added to an already-approved bid. The bid reviewer then reviews the rebate, updates approvers, and re-submits. No other status transitions change.</div>
+  <div class="note">Open question: should the bid reviewer receive an email or in-app notification when this flip occurs? Pending Sandra's response. Build the status flip regardless — notification is additive.</div>
+</section>
+
+<!-- CHANGE 2 -->
+<section>
+  <h2>Change 2 — Log approval type in history</h2>
+  <p>When the record moves to <code>Submitted for Approval</code>, capture the current value of <code>Bid_Source__c</code> and write it to the approval history / activity log entry.</p>
+  <table>
+    <tr><th>Bid Source at submission</th><th>History entry shows</th></tr>
+    <tr><td>Bid</td><td>Submitted for Approval — Bid</td></tr>
+    <tr><td>Rebate Only</td><td>Submitted for Approval — Rebate Only</td></tr>
+    <tr><td>Bid + Rebate</td><td>Submitted for Approval — Bid + Rebate</td></tr>
+  </table>
+  <p>No UI changes needed. This is an additional field on the existing history log entry.</p>
+</section>
+
+<!-- CHANGE 3 -->
+<section>
+  <h2>Change 3 — Validation rule</h2>
+  <p>Block submission when Bid Source indicates a rebate but the rebate section is empty.</p>
+  <pre>IF Bid_Source__c IN ('Rebate Only', 'Bid + Rebate')
+AND rebate section fields ARE EMPTY
+THEN block submission
+
+Error message:
+"Rebate section is required when Bid Source is Rebate Only
+or Bid + Rebate. Please complete the rebate section before
+submitting."</pre>
+</section>
+
+<!-- SCENARIOS -->
+<section>
+  <h2>End-to-end scenarios — for testing</h2>
+  <h3>Scenario A — Bid only, no rebate</h3>
+  <table>
+    <tr><th>Step</th><th>Action</th><th>Expected system response</th></tr>
+    <tr><td>1</td><td>Create bid · Bid Source = Bid</td><td>Status → Created · Rebate section hidden</td></tr>
+    <tr><td>2</td><td>Complete bid pricing · submit</td><td>Status → Submitted · history logs "Bid"</td></tr>
+    <tr><td>3</td><td>Final approver approves</td><td>Status → Approved ✓</td></tr>
+  </table>
+  <h3>Scenario B — Rebate only from creation</h3>
+  <table>
+    <tr><th>Step</th><th>Action</th><th>Expected system response</th></tr>
+    <tr><td>1</td><td>Create bid · Bid Source = Rebate Only</td><td>Status → Created · Rebate section visible</td></tr>
+    <tr><td>2</td><td>Submit with empty rebate section</td><td>Validation error — blocked</td></tr>
+    <tr><td>3</td><td>Complete rebate section · submit</td><td>Status → Submitted · history logs "Rebate Only"</td></tr>
+    <tr><td>4</td><td>Final approver approves</td><td>Status → Approved · record gets bid number ✓</td></tr>
+  </table>
+  <h3>Scenario C — Bid + rebate together</h3>
+  <table>
+    <tr><th>Step</th><th>Action</th><th>Expected system response</th></tr>
+    <tr><td>1</td><td>Create bid · Bid Source = Bid + Rebate</td><td>Status → Created · both sections visible</td></tr>
+    <tr><td>2</td><td>Complete both sections · submit</td><td>Status → Submitted · history logs "Bid + Rebate"</td></tr>
+    <tr><td>3</td><td>Final approver approves</td><td>Status → Approved ✓</td></tr>
+  </table>
+  <h3>Scenario D — Rebate added to approved bid <span class="badge badge-red">Key new scenario</span></h3>
+  <table>
+    <tr><th>Step</th><th>Action</th><th>Expected system response</th></tr>
+    <tr><td>1</td><td>Start: bid is already Approved (Scenario A complete)</td><td>Status = Approved</td></tr>
+    <tr><td>2</td><td>Change Bid Source from Bid → Bid + Rebate</td><td>Rebate section unlocks · status AUTO-FLIPS → Under Review</td></tr>
+    <tr><td>3</td><td>Complete rebate section</td><td>—</td></tr>
+    <tr><td>4</td><td>Bid reviewer submits</td><td>Status → Submitted · history logs "Bid + Rebate"</td></tr>
+    <tr><td>5</td><td>Approver reviews rebate only</td><td>Bid pricing does NOT re-approve</td></tr>
+    <tr><td>6</td><td>Final approver approves</td><td>Status → Approved ✓</td></tr>
+  </table>
+</section>
+
+<!-- WHAT DOES NOT CHANGE -->
+<section>
+  <h2>What does NOT change</h2>
+  <div class="success">Approval process routing · Approver management (bid reviewer manual control) · Status labels · Object model (rebate stays as section on bid record) · Rebate section visibility logic · SAP (no writes — all after-sales pricing)</div>
+</section>
+
+<!-- OPEN QUESTION -->
+<section>
+  <h2>Open question for Vineet</h2>
+  <div class="open-q">
+    <div class="q-num">Notification — Scenario D</div>
+    <div class="q-text">When Bid Source changes on an Approved record and status flips to Under Review — should the bid reviewer receive an email or in-app notification? Or is the status change surfacing in their queue sufficient?</div>
+    <div class="q-owner">Pending Sandra Smith's response · Email sent Aug 6 2026 · Build the status flip regardless — notification decision is additive</div>
+  </div>
+</section>
+
+<!-- ACCEPTANCE CRITERIA -->
+<section>
+  <h2>Acceptance criteria</h2>
+  <div class="ac-item"><div class="ac-num">1</div><div class="ac-text">When Bid Source changes to Rebate Only or Bid + Rebate on a record with Status = Approved → status auto-flips to Under Review</div></div>
+  <div class="ac-item"><div class="ac-num">2</div><div class="ac-text">No status flip occurs if record is not yet Approved (Scenarios B and C above pass through normally)</div></div>
+  <div class="ac-item"><div class="ac-num">3</div><div class="ac-text">Bid Source value is captured in the approval history log at time of each submission to Submitted for Approval</div></div>
+  <div class="ac-item"><div class="ac-num">4</div><div class="ac-text">Validation error blocks submission when Bid Source = Rebate Only or Bid + Rebate but rebate section fields are empty</div></div>
+  <div class="ac-item"><div class="ac-num">5</div><div class="ac-text">All existing status transitions remain unchanged</div></div>
+  <div class="ac-item"><div class="ac-num">6</div><div class="ac-text">Rebate section visibility logic unchanged — still gated by Bid Source value</div></div>
+</section>
+
+<footer>Rachel Throop · IT Manager, Salesforce &amp; SAP OTC · Newell Brands · SFDC-25926 · Updated Aug 6 2026 · <a href="../index.html" style="color:#94A3B8">IT Toolbox</a></footer>
+</div>
+</body>
+</html>

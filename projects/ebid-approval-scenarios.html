@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids Approval Process — All Scenarios · IT Toolbox</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAFAFA;color:#1e293b;font-size:15px;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;padding:24px}
+.back{font-size:13px;color:#64748B;text-decoration:none;display:inline-block;margin-bottom:20px}
+.back:hover{color:#1E40AF}
+.hdr{border-bottom:3px solid #1E40AF;padding-bottom:16px;margin-bottom:28px}
+.hdr h1{font-size:26px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.hdr .sub{font-size:13px;color:#64748B}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;margin-left:8px;vertical-align:middle}
+.badge-amber{background:#FEF3C7;color:#92400E}
+.badge-red{background:#FEE2E2;color:#991B1B}
+.badge-green{background:#D1FAE5;color:#065F46}
+.badge-blue{background:#DBEAFE;color:#1E3A8A}
+.badge-gray{background:#F1F5F9;color:#475569}
+.badge-purple{background:#EDE9FE;color:#4C1D95}
+section{margin-bottom:36px}
+h2{font-size:18px;font-weight:700;color:#0D1B2A;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid #E2E8F0}
+h3{font-size:15px;font-weight:600;color:#1E40AF;margin:16px 0 8px}
+p{margin-bottom:10px;color:#334155}
+.note{background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#78350F}
+.alert{background:#FEE2E2;border-left:4px solid #DC2626;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#7F1D1D}
+.info{background:#EFF6FF;border-left:4px solid #1E40AF;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#1E3A8A}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#1E40AF;color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #E2E8F0}
+tr:nth-child(even) td{background:#F8FAFC}
+tr:hover td{background:#EFF6FF}
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.flow-col{background:#fff;border:1px solid #E2E8F0;border-radius:8px;overflow:hidden}
+.flow-col-hdr{padding:10px 12px;font-size:12px;font-weight:700;color:#fff;text-align:center}
+.flow-col-a .flow-col-hdr{background:#1E40AF}
+.flow-col-b .flow-col-hdr{background:#5B21B6}
+.flow-col-c .flow-col-hdr{background:#9A3412}
+.flow-col-d .flow-col-hdr{background:#991B1B}
+.flow-step{padding:8px 12px;border-bottom:1px solid #F1F5F9;font-size:12px}
+.flow-step:last-child{border-bottom:none}
+.flow-step .actor{font-size:10px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.flow-step .action{color:#1e293b}
+.flow-step .system{color:#059669;font-size:11px;margin-top:2px}
+.status-pill{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:8px;margin:1px 0}
+.s-created{background:#F1F5F9;color:#475569}
+.s-review{background:#DBEAFE;color:#1E3A8A}
+.s-submitted{background:#FEF3C7;color:#92400E}
+.s-approved{background:#D1FAE5;color:#065F46}
+.s-rejected{background:#FEE2E2;color:#991B1B}
+.open-q{background:#fff;border:1.5px solid #DC2626;border-radius:8px;padding:14px;margin:8px 0}
+.open-q .q-num{font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.open-q .q-text{font-size:13px;color:#1e293b;margin-bottom:6px}
+.open-q .q-owner{font-size:11px;color:#64748B}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;font-size:12px}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+@media(max-width:640px){.flow-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="../index.html" class="back">← IT Toolbox</a>
+
+<div class="hdr">
+  <h1>eBids — Approval Process · All Scenarios <span class="badge badge-amber">Updated Aug 6 2026</span></h1>
+  <div class="sub">Process flows for all 4 approval scenarios · SFDC-25926 · One approval process · Bid reviewer controls approvers manually</div>
+</div>
+
+<!-- OVERVIEW -->
+<section>
+  <h2>Overview</h2>
+  <p>There is one approval process in Salesforce. The bid reviewer manages approvers manually — there is no automated routing. The <strong>Bid Source</strong> field on the bid record determines what type of approval is being initiated and which of the four scenarios applies.</p>
+  <div class="info">Bid reviewer retains full manual control of approvers in every scenario. The system routes and tracks — it does not assign approvers automatically.</div>
+
+  <h3>Bid Source values</h3>
+  <table>
+    <tr><th>Bid Source</th><th>Bid pricing section</th><th>Rebate section</th><th>Approval scenario</th></tr>
+    <tr><td>Bid</td><td>Visible · required</td><td>Hidden</td><td>Scenario A</td></tr>
+    <tr><td>Rebate Only</td><td>Hidden</td><td>Visible · required</td><td>Scenario B</td></tr>
+    <tr><td>Bid + Rebate</td><td>Visible · required</td><td>Visible · required</td><td>Scenario C or D</td></tr>
+  </table>
+
+  <h3>Status flow</h3>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0">
+    <span class="status-pill s-created">Created</span>
+    <span style="color:#94A3B8">→</span>
+    <span class="status-pill s-review">Under Review</span>
+    <span style="color:#94A3B8">→</span>
+    <span class="status-pill s-submitted">Submitted for Approval</span>
+    <span style="color:#94A3B8">→</span>
+    <span class="status-pill s-rejected">Rejected</span>
+    <span style="color:#94A3B8">or</span>
+    <span class="status-pill s-approved">Approved</span>
+  </div>
+  <p style="font-size:13px;color:#64748B">Approval type (Bid / Rebate Only / Bid + Rebate) is logged in the history at each submission.</p>
+</section>
+
+<!-- FOUR SCENARIOS SIDE BY SIDE -->
+<section>
+  <h2>All four scenarios — step by step</h2>
+  <div class="flow-grid">
+
+    <div class="flow-col flow-col-a">
+      <div class="flow-col-hdr">A — Bid only</div>
+      <div class="flow-step"><div class="actor">Requestor</div><div class="action">Creates bid · Bid Source = Bid</div><div class="system">Status → Created · Rebate hidden</div></div>
+      <div class="flow-step"><div class="actor">Requestor</div><div class="action">Completes bid pricing fields</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Reviews · sets approvers manually</div><div class="system">Status → Under Review</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Submits for approval</div><div class="system">Status → Submitted · logs "Bid"</div></div>
+      <div class="flow-step"><div class="actor">Approver(s)</div><div class="action">Reviews per bid routing matrix</div></div>
+      <div class="flow-step"><div class="actor">System</div><div class="action">Final approver approves</div><div class="system">Status → Approved</div></div>
+    </div>
+
+    <div class="flow-col flow-col-b">
+      <div class="flow-col-hdr">B — Rebate only</div>
+      <div class="flow-step"><div class="actor">Requestor</div><div class="action">Creates bid · Bid Source = Rebate Only</div><div class="system">Status → Created · Rebate section visible</div></div>
+      <div class="flow-step"><div class="actor">Requestor / Segment Team</div><div class="action">Completes rebate section</div><div class="system">Validation fires if submitted empty</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Reviews rebate · sets approvers</div><div class="system">Status → Under Review</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Submits for approval</div><div class="system">Status → Submitted · logs "Rebate Only"</div></div>
+      <div class="flow-step"><div class="actor">Approver(s)</div><div class="action">Reviews per rebate routing</div></div>
+      <div class="flow-step"><div class="actor">System</div><div class="action">Final approver approves</div><div class="system">Status → Approved · gets bid number</div></div>
+    </div>
+
+    <div class="flow-col flow-col-c">
+      <div class="flow-col-hdr">C — Bid + rebate together</div>
+      <div class="flow-step"><div class="actor">Requestor</div><div class="action">Creates bid · Bid Source = Bid + Rebate</div><div class="system">Status → Created · both sections visible</div></div>
+      <div class="flow-step"><div class="actor">Requestor / Segment Team</div><div class="action">Completes both sections</div><div class="system">Validation fires if either section empty</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Reviews both · sets approvers</div><div class="system">Status → Under Review</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Submits for approval</div><div class="system">Status → Submitted · logs "Bid + Rebate"</div></div>
+      <div class="flow-step"><div class="actor">Approver(s)</div><div class="action">Simultaneous · follows rebate routing</div></div>
+      <div class="flow-step"><div class="actor">System</div><div class="action">Final approver approves</div><div class="system">Status → Approved</div></div>
+    </div>
+
+    <div class="flow-col flow-col-d">
+      <div class="flow-col-hdr">D — Rebate added later</div>
+      <div class="flow-step"><div class="actor">—</div><div class="action">Bid already Approved (Scenario A complete)</div><div class="system">Status = Approved</div></div>
+      <div class="flow-step"><div class="actor">Requestor</div><div class="action">Changes Bid Source → Bid + Rebate</div><div class="system">Rebate section unlocks · status AUTO-FLIPS → Under Review</div></div>
+      <div class="flow-step"><div class="actor">Requestor / Segment Team</div><div class="action">Completes rebate section</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Notified (TBD) · reviews rebate · updates approvers</div></div>
+      <div class="flow-step"><div class="actor">Bid reviewer</div><div class="action">Re-submits for approval</div><div class="system">Status → Submitted · logs "Bid + Rebate"</div></div>
+      <div class="flow-step"><div class="actor">Approver(s)</div><div class="action">Rebate only · bid does not re-approve</div></div>
+      <div class="flow-step"><div class="actor">System</div><div class="action">Final approver approves</div><div class="system">Status → Approved</div></div>
+    </div>
+
+  </div>
+  <div class="note">Scenarios B, C, D — rebate routing matrix (approvers and escalation criteria) is pending Sandra Smith's response. Email sent Aug 6 2026. Do not build rebate routing until confirmed.</div>
+</section>
+
+<!-- BID ROUTING MATRIX -->
+<section>
+  <h2>Bid routing matrix — Scenario A</h2>
+  <p>Per Bid Approval Guidelines (Sandra Smith, July 2026). Bid reviewer manages approvers manually based on these criteria.</p>
+  <h3>By dollar volume</h3>
+  <table>
+    <tr><th>Volume</th><th>Primary approver(s)</th><th>Notes</th></tr>
+    <tr><td>$0 – $149,999</td><td>Sandy Smith (Bid Leader)</td><td>Routes to Marco if below hard floor or GM% &lt; 15%/item</td></tr>
+    <tr><td>$150,000 – $499,999</td><td>Sandy Smith → Marco Cardenas (Sr Pricing Mgr)</td><td>Finance added if below hard floor or GM% &lt; 15%</td></tr>
+    <tr><td>$500,000+</td><td>Follow Large Opportunity Workflow</td><td>Sr Finance Manager to ensure Category alignment</td></tr>
+  </table>
+  <h3>By reason / special routing</h3>
+  <table>
+    <tr><th>Reason</th><th>Additional approver required</th></tr>
+    <tr><td>Healthcare end user</td><td>Lindsey Vanzant (via Sandy)</td></tr>
+    <tr><td>BSC end user</td><td>Penny Schreter</td></tr>
+    <tr><td>Hospitality end user</td><td>Amy Goodson (new bids and item adds only)</td></tr>
+    <tr><td>Cross-territory / different region distributor</td><td>Regional Manager</td></tr>
+    <tr><td>2-party / inventory fulfillment</td><td>Regional Manager · Vertical Sales Mgr · Sandy · Marco</td></tr>
+    <tr><td>3rd party request</td><td>Regional Manager · Sandy · Marco</td></tr>
+    <tr><td>Pioneering request</td><td>Regional Manager · Sandy · Marco (agreement must be attached)</td></tr>
+    <tr><td>Program / contract portion</td><td>Vertical Director · Field Director · Sandy · Marco · Revis Felts · Scott Fossett · Carroll Parrott</td></tr>
+    <tr><td>Missing information</td><td>Return to requestor</td></tr>
+  </table>
+</section>
+
+<!-- BUSINESS RULES -->
+<section>
+  <h2>Business rules</h2>
+  <table>
+    <tr><th>Rule</th><th>Behavior</th></tr>
+    <tr><td>Bid Source change on Approved record</td><td>If Bid Source changes to Rebate Only or Bid + Rebate AND status = Approved → status auto-flips to Under Review</td></tr>
+    <tr><td>Validation — empty rebate section</td><td>If Bid Source = Rebate Only or Bid + Rebate AND rebate section is empty → block submission with error message</td></tr>
+    <tr><td>Approval history log</td><td>Bid Source value at time of submission is captured in the approval history entry for audit trail</td></tr>
+    <tr><td>Rebate added to approved bid</td><td>Only the rebate portion routes for approval — bid pricing does not re-approve</td></tr>
+    <tr><td>Rebate Only approval</td><td>Record receives a bid number and appears in the bid search screen after approval</td></tr>
+  </table>
+</section>
+
+<!-- OPEN QUESTIONS -->
+<section>
+  <h2>Open questions <span class="badge badge-red">Awaiting response</span></h2>
+  <div class="open-q">
+    <div class="q-num">Q1 — Who completes the rebate section?</div>
+    <div class="q-text">Is it the rep, the Segment Team, or does it depend on the scenario? This affects field-level security and permissions in the system.</div>
+    <div class="q-owner">Owner: Sandra Smith · Email sent Aug 6 2026</div>
+  </div>
+  <div class="open-q">
+    <div class="q-num">Q2 — Notification for Scenario D?</div>
+    <div class="q-text">When a bid that is already Approved has a rebate added and status flips to Under Review — does the bid reviewer receive an email or in-app notification, or is queue visibility sufficient?</div>
+    <div class="q-owner">Owner: Sandra Smith · Email sent Aug 6 2026</div>
+  </div>
+  <div class="open-q">
+    <div class="q-num">Q3 — Rebate approval routing matrix</div>
+    <div class="q-text">Who are the approvers for Rebate Only and Bid + Rebate scenarios? What criteria trigger escalation? This is required before Scenarios B, C, D can be built.</div>
+    <div class="q-owner">Owner: Sandra Smith · Email sent Aug 6 2026</div>
+  </div>
+</section>
+
+<footer>Rachel Throop · IT Manager, Salesforce &amp; SAP OTC · Newell Brands · SFDC-25926 · Updated Aug 6 2026 · <a href="../index.html" style="color:#94A3B8">IT Toolbox</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids Product Spec — What Was Built · IT Toolbox</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAFAFA;color:#1e293b;font-size:15px;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;padding:24px}
+.back{font-size:13px;color:#64748B;text-decoration:none;display:inline-block;margin-bottom:20px}
+.back:hover{color:#1E40AF}
+.hdr{border-bottom:3px solid #1E40AF;padding-bottom:16px;margin-bottom:28px}
+.hdr h1{font-size:26px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.hdr .sub{font-size:13px;color:#64748B}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.badge-amber{background:#FEF3C7;color:#92400E}
+.badge-red{background:#FEE2E2;color:#991B1B}
+.badge-green{background:#D1FAE5;color:#065F46}
+.badge-blue{background:#DBEAFE;color:#1E3A8A}
+.badge-gray{background:#F1F5F9;color:#475569}
+.badge-built{background:#D1FAE5;color:#065F46}
+.badge-progress{background:#FEF3C7;color:#92400E}
+.badge-pending{background:#FEE2E2;color:#991B1B}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 28px}
+.stat{background:#fff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;text-align:center}
+.stat .n{font-size:28px;font-weight:700;color:#1E40AF}
+.stat .lbl{font-size:12px;color:#64748B;margin-top:2px}
+.stat.amber .n{color:#D97706}
+.stat.red .n{color:#DC2626}
+.stat.green .n{color:#059669}
+section{margin-bottom:36px}
+h2{font-size:18px;font-weight:700;color:#0D1B2A;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid #E2E8F0}
+h3{font-size:15px;font-weight:600;color:#1E40AF;margin:16px 0 8px}
+p{margin-bottom:10px;color:#334155}
+.note{background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#78350F}
+.alert{background:#FEE2E2;border-left:4px solid #DC2626;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#7F1D1D}
+.info{background:#EFF6FF;border-left:4px solid #1E40AF;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#1E3A8A}
+.success{background:#D1FAE5;border-left:4px solid #059669;padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px;color:#064E3B}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#1E40AF;color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #E2E8F0;vertical-align:top}
+tr:nth-child(even) td{background:#F8FAFC}
+.gap-card{background:#fff;border:1.5px solid #E2E8F0;border-radius:8px;padding:14px;margin:10px 0}
+.gap-card.red{border-color:#FECACA}
+.gap-card .gap-title{font-size:14px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.gap-card .gap-status{font-size:11px;font-weight:700;color:#DC2626;margin-bottom:8px}
+.gap-card p{font-size:13px;margin-bottom:6px}
+.gap-card .gap-jira{font-size:11px;color:#64748B}
+.open-q{background:#fff;border:1.5px solid #DC2626;border-radius:8px;padding:12px;margin:8px 0}
+.open-q .q-label{font-size:11px;font-weight:700;color:#DC2626;margin-bottom:3px}
+.open-q .q-text{font-size:13px;color:#1e293b;margin-bottom:4px}
+.open-q .q-meta{font-size:11px;color:#64748B}
+.decision-card{background:#fff;border:1px solid #E2E8F0;border-radius:6px;padding:10px 14px;margin:6px 0}
+.decision-card .d-date{font-size:11px;color:#64748B;margin-bottom:2px}
+.decision-card .d-text{font-size:13px;color:#1e293b;margin-bottom:2px}
+.decision-card .d-owner{font-size:11px;color:#64748B}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="../index.html" class="back">← IT Toolbox</a>
+
+<div class="hdr">
+  <h1>eBids — Product Spec <span class="badge badge-amber">Version 1.0 Draft · Aug 6 2026</span></h1>
+  <div class="sub">What was built and how it works · Technical and functional source of truth · For IT, Dev, and business leads · Field list TBD</div>
+</div>
+
+<div class="stats">
+  <div class="stat green"><div class="n">Dec 1</div><div class="lbl">Go-live 2026</div></div>
+  <div class="stat amber"><div class="n">Aug 24</div><div class="lbl">UAT target</div></div>
+  <div class="stat red"><div class="n">4</div><div class="lbl">Open design gaps</div></div>
+  <div class="stat red"><div class="n">5</div><div class="lbl">Open questions</div></div>
+</div>
+
+<!-- WHAT WAS BUILT -->
+<section>
+  <h2>1 · What was built</h2>
+  <table>
+    <tr><th>Feature</th><th>Status</th><th>Jira</th><th>Notes</th></tr>
+    <tr><td>General bid configuration</td><td><span class="badge badge-progress">In Progress</span></td><td>Sprint 2026.08</td><td>4 active stories</td></tr>
+    <tr><td>Bid Source picklist</td><td><span class="badge badge-built">Built</span></td><td>SFDC-25926</td><td>Bid / Rebate Only / Bid + Rebate</td></tr>
+    <tr><td>Rebate section (gated by Bid Source)</td><td><span class="badge badge-built">Built</span></td><td>SFDC-26217</td><td>Hidden until Bid Source = Rebate Only or Bid + Rebate</td></tr>
+    <tr><td>Approval process</td><td><span class="badge badge-amber">In Testing</span></td><td>SFDC-25604</td><td>Rachel testing · Sandra UAT next</td></tr>
+    <tr><td>List price sourcing (SAP→SF)</td><td><span class="badge badge-progress">In Progress</span></td><td>SFDC-25395</td><td>Solution proposed · Dev building</td></tr>
+    <tr><td>IsCases field logic</td><td><span class="badge badge-progress">In Progress</span></td><td>SFDC-26220</td><td>With Dev</td></tr>
+    <tr><td>Who Won / Tabulations</td><td><span class="badge badge-amber">In Review</span></td><td>SFDC-26219</td><td>With Rachel</td></tr>
+    <tr><td>GM% formula</td><td><span class="badge badge-amber">In Review</span></td><td>SFDC-26248</td><td>With Rachel</td></tr>
+    <tr><td>PDF export</td><td><span class="badge badge-progress">In Progress</span></td><td>SFDC-26218</td><td>Jira turned over · Dev building</td></tr>
+    <tr><td>Rebate approval — 3 scenarios</td><td><span class="badge badge-pending">⚠ Design pending</span></td><td>SFDC-25926</td><td>Awaiting Sandra — do NOT build</td></tr>
+    <tr><td>Amendment flow</td><td><span class="badge badge-pending">⚠ Build gap</span></td><td>SFDC-25926</td><td>Not yet designed — see Section 4</td></tr>
+    <tr><td>Distributor notification on amendment</td><td><span class="badge badge-pending">⚠ Not started</span></td><td>TBD</td><td>Notification on commit/approval</td></tr>
+    <tr><td>Security — rep bid visibility</td><td><span class="badge badge-pending">⚠ Decision needed</span></td><td>TBD</td><td>Must decide before build</td></tr>
+  </table>
+</section>
+
+<!-- BID RECORD -->
+<section>
+  <h2>2 · Bid record — object model</h2>
+  <p>The bid record is the core object. Pricing, rebate programs, approval status, and distributor assignments all live on or relate to the bid record. Rebate is a <strong>section on the bid record</strong> — not a separate object.</p>
+
+  <h3>Bid Source — the governing field</h3>
+  <p>Bid Source is a picklist that controls section visibility and determines which approval scenario applies. It is set at creation and can be changed by anyone with edit access.</p>
+  <table>
+    <tr><th>Bid Source value</th><th>Bid pricing section</th><th>Rebate section</th><th>Approval scenario</th></tr>
+    <tr><td><strong>Bid</strong></td><td>Visible · required</td><td>Hidden</td><td>Scenario A</td></tr>
+    <tr><td><strong>Rebate Only</strong></td><td>Hidden</td><td>Visible · required</td><td>Scenario B</td></tr>
+    <tr><td><strong>Bid + Rebate</strong></td><td>Visible · required</td><td>Visible · required</td><td>Scenario C or D</td></tr>
+  </table>
+
+  <h3>Business rules</h3>
+  <table>
+    <tr><th>Rule</th><th>Behavior</th></tr>
+    <tr><td>Bid Source change on Approved record</td><td>If Bid Source changes to Rebate Only or Bid + Rebate AND status = Approved → auto-flip to Under Review</td></tr>
+    <tr><td>Validation — empty rebate section</td><td>If Bid Source = Rebate Only or Bid + Rebate AND rebate section empty → block submission with error message</td></tr>
+    <tr><td>Approval history</td><td>Bid Source value at submission is captured in approval history entry for audit trail</td></tr>
+    <tr><td>Rebate added to approved bid</td><td>Only the rebate portion re-routes for approval — bid pricing does not re-approve</td></tr>
+    <tr><td>Rebate Only approval</td><td>Record receives a bid number and appears in the bid search screen after approval</td></tr>
+  </table>
+
+  <div class="note">Field list TBD — Rachel to document all fields including type, required flag, visibility rules, and SAP mapping after confirming with Vineet.</div>
+</section>
+
+<!-- APPROVAL PROCESS -->
+<section>
+  <h2>3 · Approval process</h2>
+  <div class="info">One approval process. Bid reviewer initiates manually and controls approvers. No automated routing. See <a href="ebid-approval-scenarios.html" style="color:#1E40AF">Approval Scenarios page</a> for full step-by-step flows.</div>
+
+  <h3>Statuses</h3>
+  <table>
+    <tr><th>Status</th><th>Meaning</th><th>Who sets it</th></tr>
+    <tr><td>Created</td><td>Record created. Not yet under review.</td><td>System — on record creation</td></tr>
+    <tr><td>Under Review</td><td>Bid reviewer reviewing. Not yet submitted.</td><td>System (Scenario D auto-flip) or manual</td></tr>
+    <tr><td>Submitted for Approval</td><td>Submitted. Awaiting approver action.</td><td>Bid reviewer — manual</td></tr>
+    <tr><td>Rejected</td><td>Approver rejected. Returns to requestor.</td><td>Approver — manual</td></tr>
+    <tr><td>Approved</td><td>All approvals received. Bid is active.</td><td>Final approver — manual</td></tr>
+  </table>
+
+  <h3>Bid routing — Scenario A (confirmed)</h3>
+  <table>
+    <tr><th>Dollar volume</th><th>Primary approver(s)</th></tr>
+    <tr><td>$0 – $149,999</td><td>Sandy Smith (Bid Leader) · escalates to Marco if below hard floor or GM% &lt; 15%</td></tr>
+    <tr><td>$150,000 – $499,999</td><td>Sandy Smith → Marco Cardenas (Sr Pricing Mgr)</td></tr>
+    <tr><td>$500,000+</td><td>Follow Large Opportunity Workflow</td></tr>
+  </table>
+  <div class="alert">Rebate routing (Scenarios B, C, D) — approvers and escalation criteria pending Sandra Smith's response. Email sent Aug 6 2026. Do not build until confirmed.</div>
+</section>
+
+<!-- KNOWN GAPS -->
+<section>
+  <h2>4 · Known gaps — not yet built <span class="badge badge-red">Do not build without design</span></h2>
+
+  <div class="gap-card red">
+    <div class="gap-title">4.1 · Rebate approval routing — Scenarios B, C, D</div>
+    <div class="gap-status">DESIGN PENDING — DO NOT SEND TO DEV</div>
+    <p>Three rebate approval scenarios confirmed by Sandra Aug 6. Routing matrix (approvers, escalation criteria) not yet defined for Salesforce.</p>
+    <p>Scenarios: Rebate Only · Bid + Rebate together · Rebate added after bid approval</p>
+    <div class="gap-jira">Jira: SFDC-25926 · Owner: Sandra Smith · Status: Awaiting response to email sent Aug 6 2026</div>
+  </div>
+
+  <div class="gap-card red">
+    <div class="gap-title">4.2 · Amendment flow</div>
+    <div class="gap-status">BUILD GAP IDENTIFIED</div>
+    <p>After the first amendment is approved, there is no option to request a subsequent amendment. Bids can have 10 or more amendments.</p>
+    <p>Requirements: (1) bid must support multiple amendment cycles throughout lifecycle. (2) When an amendment is committed and approved, distributors receive automated notification that bid was updated — content not required, notification only.</p>
+    <div class="gap-jira">Jira: SFDC-25926 · Logged Aug 4 2026 · Awaiting Dev solution</div>
+  </div>
+
+  <div class="gap-card red">
+    <div class="gap-title">4.3 · Batched SAP call — distributor pricing</div>
+    <div class="gap-status">OPEN QUESTION</div>
+    <p>What happens to distributor pricing on the bid when pricing changes between batch calls to SAP?</p>
+    <div class="gap-jira">Owner: Sherry · Follow up not yet scheduled</div>
+  </div>
+
+  <div class="gap-card red">
+    <div class="gap-title">4.4 · Security — sales rep bid visibility</div>
+    <div class="gap-status">DECISION NEEDED — BLOCKS BUILD</div>
+    <p>Can a sales rep see another rep's bids? This decision must be made before the security and sharing model can be built.</p>
+    <div class="gap-jira">Owner: Karen Chavis / Sandra Smith · Status: Open</div>
+  </div>
+</section>
+
+<!-- OUT OF SCOPE -->
+<section>
+  <h2>5 · Out of scope — consciously excluded</h2>
+  <table>
+    <tr><th>Item</th><th>Reason excluded</th><th>Confirmed</th></tr>
+    <tr><td>SAP pricing changes</td><td>All eBids is after-sales pricing — no SAP writes from this build</td><td>Aug 2026</td></tr>
+    <tr><td>Automated approval routing</td><td>Business wants manual control — bid reviewer manages approvers manually</td><td>Aug 2026</td></tr>
+    <tr><td>Automated approver assignment</td><td>Bid reviewer retains full manual control of who approves each submission</td><td>Aug 2026</td></tr>
+    <tr><td>Rebate as separate Salesforce object</td><td>Rebate is a section on the bid record — not a standalone object</td><td>Aug 2026</td></tr>
+  </table>
+</section>
+
+<!-- OPEN QUESTIONS -->
+<section>
+  <h2>6 · Open questions log</h2>
+  <div class="open-q">
+    <div class="q-label">Q1 · Who completes the rebate section?</div>
+    <div class="q-text">Rep, Segment Team, or depends on scenario? Affects field-level security and permissions.</div>
+    <div class="q-meta">Owner: Sandra Smith · Raised: Aug 6 2026 · Status: Awaiting response</div>
+  </div>
+  <div class="open-q">
+    <div class="q-label">Q2 · Notification for Scenario D?</div>
+    <div class="q-text">When status flips to Under Review after rebate added — email/in-app notification, or queue visibility sufficient?</div>
+    <div class="q-meta">Owner: Sandra Smith · Raised: Aug 6 2026 · Status: Awaiting response</div>
+  </div>
+  <div class="open-q">
+    <div class="q-label">Q3 · Rebate approval routing matrix</div>
+    <div class="q-text">Who are the approvers for rebate scenarios and what triggers escalation? Required before Scenarios B, C, D can be built.</div>
+    <div class="q-meta">Owner: Sandra Smith · Raised: Aug 6 2026 · Status: Awaiting response</div>
+  </div>
+  <div class="open-q">
+    <div class="q-label">Q4 · Batched SAP call — distributor pricing</div>
+    <div class="q-text">What happens to distributor pricing when pricing changes between batch calls?</div>
+    <div class="q-meta">Owner: Sherry · Raised: Aug 4 2026 · Status: Not yet raised with Sherry</div>
+  </div>
+  <div class="open-q">
+    <div class="q-label">Q5 · Security — can a sales rep see another rep's bids?</div>
+    <div class="q-text">Decision needed before security model can be built.</div>
+    <div class="q-meta">Owner: Karen Chavis · Status: Open</div>
+  </div>
+</section>
+
+<!-- DECISION LOG -->
+<section>
+  <h2>7 · Decision log</h2>
+  <div class="decision-card">
+    <div class="d-date">Aug 6 2026</div>
+    <div class="d-text">Rebate approval uses same SF approval process — bid reviewer controls approvers manually for all scenarios</div>
+    <div class="d-owner">Rachel Throop / Sandra Smith</div>
+  </div>
+  <div class="decision-card">
+    <div class="d-date">Aug 6 2026</div>
+    <div class="d-text">Rebate section gated by existing Bid Source picklist — no new field needed</div>
+    <div class="d-owner">Rachel Throop / Vineet Kumar</div>
+  </div>
+  <div class="decision-card">
+    <div class="d-date">Aug 4 2026</div>
+    <div class="d-text">Rebate Only scenario confirmed — gets bid number, lives in bid search screen after approval</div>
+    <div class="d-owner">Sandra Smith</div>
+  </div>
+  <div class="decision-card">
+    <div class="d-date">Aug 4 2026</div>
+    <div class="d-text">Rebate added after approval flips bid status to Under Review — only rebate portion re-approves, not full bid</div>
+    <div class="d-owner">Rachel Throop (confirmed with Sandra)</div>
+  </div>
+  <div class="decision-card">
+    <div class="d-date">Aug 3 2026</div>
+    <div class="d-text">PDF export Jira turned over to Dev — SFDC-26218</div>
+    <div class="d-owner">Rachel Throop</div>
+  </div>
+  <div class="decision-card">
+    <div class="d-date">Aug 2026</div>
+    <div class="d-text">All eBids is after-sales pricing — no SAP writes from this build</div>
+    <div class="d-owner">Rachel Throop / Venkat Kuttua</div>
+  </div>
+</section>
+
+<footer>Rachel Throop · IT Manager, Salesforce &amp; SAP OTC · Newell Brands · Updated Aug 6 2026 · Version 1.0 Draft · <a href="../index.html" style="color:#94A3B8">IT Toolbox</a></footer>
+</div>
+</body>
+</html>
