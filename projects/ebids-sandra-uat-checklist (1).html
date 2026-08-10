@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBids UAT Checklist — Sandra Smith</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#1e293b;font-size:15px;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:32px 24px}
+.page-hdr{margin-bottom:28px}
+.page-hdr h1{font-size:24px;font-weight:700;color:#0D1B2A;margin-bottom:4px}
+.page-hdr p{font-size:13px;color:#64748B}
+.warning{background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:#78350F;display:flex;gap:10px;align-items:flex-start}
+.warning strong{color:#92400E}
+.progress-wrap{background:#fff;border:1px solid #E2E8F0;border-radius:8px;padding:16px 20px;margin-bottom:20px}
+.progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.progress-top span{font-size:13px;color:#64748B}
+.progress-top strong{font-size:15px;color:#0D1B2A}
+.progress-bar{height:8px;background:#F1F5F9;border-radius:4px;overflow:hidden;margin-bottom:12px}
+.progress-fill{height:100%;background:#059669;border-radius:4px;transition:width .3s}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px}
+.pill-total{background:#F1F5F9;color:#475569}
+.pill-ok{background:#D1FAE5;color:#065F46}
+.pill-gap{background:#FEE2E2;color:#991B1B}
+.pill-skip{background:#FEF3C7;color:#92400E}
+.section{margin-bottom:32px}
+.section-hdr{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center}
+.section-count{font-size:11px;font-weight:600;color:#94A3B8;text-transform:none;letter-spacing:0}
+.item{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid #E2E8F0;border-left:4px solid #E2E8F0;border-radius:8px;padding:12px 14px;margin-bottom:8px;transition:border-color .1s}
+.item.ok{background:#F0FDF4;border-color:#86EFAC;border-left-color:#059669}
+.item.gap{background:#FEF2F2;border-color:#FECACA;border-left-color:#DC2626}
+.item.skip{background:#FFFBEB;border-color:#FDE68A;border-left-color:#D97706}
+.item-check{width:20px;height:20px;border-radius:4px;border:1.5px solid #CBD5E1;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:12px;font-weight:700;background:#fff}
+.item.ok .item-check{background:#059669;border-color:#059669;color:#fff}
+.item.gap .item-check{background:#DC2626;border-color:#DC2626;color:#fff}
+.item.skip .item-check{background:#D97706;border-color:#D97706;color:#fff}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:14px;font-weight:600;color:#0D1B2A;margin-bottom:3px}
+.item-sub{font-size:12px;color:#64748B;line-height:1.5}
+.item-sub.devnote{color:#D97706;font-style:italic}
+.item-actions{display:flex;gap:6px;flex-shrink:0;margin-top:2px}
+.btn{font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;color:#475569;white-space:nowrap;transition:all .1s}
+.btn:hover{border-color:#CBD5E1;background:#F8FAFC}
+.btn.btn-ok{border-color:#059669;color:#059669}
+.btn.btn-ok:hover,.btn.btn-ok.active{background:#059669;color:#fff}
+.btn.btn-gap{border-color:#DC2626;color:#DC2626}
+.btn.btn-gap:hover,.btn.btn-gap.active{background:#DC2626;color:#fff}
+.btn.btn-skip{border-color:#D97706;color:#D97706}
+.btn.btn-skip:hover,.btn.btn-skip.active{background:#D97706;color:#fff}
+.gap-note-wrap{display:none;margin-top:8px}
+.gap-note-wrap.show{display:block}
+.gap-note{width:100%;font-size:12px;padding:8px 10px;border:1px solid #FECACA;border-radius:6px;background:#fff;color:#1e293b;resize:vertical;min-height:48px;font-family:inherit}
+.gap-note:focus{outline:none;border-color:#DC2626}
+.export-bar{background:#fff;border:1px solid #E2E8F0;border-radius:8px;padding:14px 18px;margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.export-bar p{font-size:13px;color:#64748B}
+.export-btn{font-size:13px;font-weight:600;padding:8px 18px;border-radius:8px;border:1.5px solid #1E40AF;color:#1E40AF;background:#fff;cursor:pointer}
+.export-btn:hover{background:#EFF6FF}
+footer{margin-top:32px;padding-top:16px;border-top:1px solid #E2E8F0;font-size:12px;color:#94A3B8;text-align:center}
+@media(max-width:580px){.item{flex-wrap:wrap}.item-actions{width:100%;margin-top:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="page-hdr">
+  <h1>eBids UAT Checklist</h1>
+  <p>Sandra Smith · Sandbox testing · Aug 2026 · Contact Rachel Throop with any questions — rachel.throop@newellco.com · 404 542 8846</p>
+</div>
+
+<div class="warning">
+  <span style="font-size:16px;flex-shrink:0">⚠️</span>
+  <div><strong>Before you start:</strong> confirm with Rachel that your sandbox access is set up and that real data has been loaded. Some items below are still with Dev and not yet testable — those are marked with a note. If you cannot access a screen or button, mark it as a Gap and note what you saw.</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-top"><span id="prog-label">0 of 23 reviewed</span><strong id="prog-pct">0%</strong></div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="pill-row">
+    <span class="pill pill-total" id="pill-total">23 items</span>
+    <span class="pill pill-ok" id="pill-ok">0 looks good</span>
+    <span class="pill pill-gap" id="pill-gap">0 gaps found</span>
+    <span class="pill pill-skip" id="pill-skip">0 not yet testable</span>
+  </div>
+</div>
+
+<div id="cl"></div>
+
+<div class="export-bar">
+  <p>When you are done, click Export to generate a summary you can email to Rachel.</p>
+  <button class="export-btn" onclick="exportSummary()">Export summary</button>
+</div>
+
+<footer>eBids UAT · Newell Brands IT Order to Cash · Rachel Throop · rachel.throop@newellco.com · Aug 2026</footer>
+</div>
+
+<script>
+const sections = [
+  {
+    title: "Bid record — fields and layout",
+    items: [
+      {id:"r1", text:"Bid record opens and all fields are visible and labeled correctly", sub:"Check: eBid #, Status, End User, Segment, Justification, Bid Source, and all pricing fields are present and readable"},
+      {id:"r2", text:"Bid Source picklist shows correct values", sub:"Should have exactly 3 options: Bid / Rebate Only / Bid + Rebate — nothing more, nothing less"},
+      {id:"r3", text:"Rebate section is hidden when Bid Source = Bid", sub:"Should not be visible at all — not grayed out, not collapsed, completely hidden"},
+      {id:"r4", text:"Rebate section appears when Bid Source = Rebate Only or Bid + Rebate", sub:"Switch Bid Source and confirm the rebate section unlocks immediately"},
+      {id:"r5", text:"Field labels match your team's terminology", sub:"Read through every label — flag any field name that does not match what you call it"},
+      {id:"r6", text:"Required fields are enforced", sub:"Try saving with required fields empty — system should block and show an error message"},
+    ]
+  },
+  {
+    title: "Pricing fields",
+    items: [
+      {id:"p1", text:"List Price, Target Price, Requested Price visible to all users", sub:"Any logged-in user should see these three fields on the bid"},
+      {id:"p2", text:"Hard Floor, Soft Floor, Public Bid Price, Distributor Current Price visible to Coordinator and Director only", sub:"Log in as a rep — these 4 fields should not appear. Log in as Coordinator — they should be visible."},
+      {id:"p3", text:"IsCases checkbox calculates correctly", sub:"Find a case-sold product. Check IsCases — Units × Standard Pack should auto-calculate. Uncheck it — calculation should clear."},
+      {id:"p4", text:"GM% calculates correctly per line item", sub:"Verify against a known bid if possible. Flag if the formula produces an unexpected result.", devnote:"With Rachel — spec recently turned over to Dev. May not be testable yet."},
+    ]
+  },
+  {
+    title: "Product add",
+    items: [
+      {id:"pr1", text:"Product search works by material number and description", sub:"Try both. Results should show List Price and Target Price next to each product."},
+      {id:"pr2", text:"Add to Bid opens inline line entry", sub:"After clicking Add to Bid, the inline entry form should appear for Units, IsCases, Requested Price, Competitor, Competitor Price"},
+      {id:"pr3", text:"Product line appears on the bid after saving", sub:"Note: a page refresh may be required to see added products — this is a known issue with Dev. Please note if refresh was needed.", devnote:"Known Dev issue — page refresh currently required. Note in gap if true."},
+      {id:"pr4", text:"Competitor list is complete and accurate", sub:"Review every competitor in the dropdown. Flag any that are missing or named incorrectly."},
+    ]
+  },
+  {
+    title: "Distributors",
+    items: [
+      {id:"d1", text:"Add Distributor is findable on the bid record", sub:"Note where the button or link is on the page. Flag if it is hard to find or in the wrong place."},
+      {id:"d2", text:"Distributor search returns the right accounts", sub:"Should return SAP accounts only — Account Group Z001, Sales Area US72-01. Flag if wrong accounts appear."},
+      {id:"d3", text:"Distributor appears on the bid after adding", sub:"Note: a page refresh may be required — this is a known Dev issue. Please note if refresh was needed.", devnote:"Known Dev issue — page refresh currently required. Note in gap if true."},
+    ]
+  },
+  {
+    title: "Approval process — Scenario A (bid only)",
+    items: [
+      {id:"a1", text:"Under Review status is reachable and the bid looks correct at that stage", sub:"Check that all fields are still visible. Confirm the Coordinator can still edit the record at this stage."},
+      {id:"a2", text:"Submitting for approval works and status updates", sub:"Status should move to Submitted for Approval. Check the history — it should log the submission with the approval type (Bid)."},
+      {id:"a3", text:"Approval comments are captured in history", sub:"Add a comment during the approval step — confirm it saves and appears in the history log"},
+      {id:"a4", text:"Approved status looks correct", sub:"After approval, the bid record should clearly show Approved with no errors or missing fields"},
+      {id:"a5", text:"Status indicator / path updates with status", sub:"The stage bar or path at the top of the record should match the current status.", devnote:"Known Dev issue — path may not sync with status. Please note what you see."},
+    ]
+  },
+  {
+    title: "Chatter and collaboration",
+    items: [
+      {id:"c1", text:"Chatter is visible and usable on the bid record", sub:"Post a test message, tag a colleague, confirm it saves and is visible"},
+      {id:"c2", text:"Documents can be attached in Chatter", sub:"Attach a test file — confirm it uploads and is accessible"},
+    ]
+  }
+];
+
+const state = {};
+const notes = {};
+const total = sections.reduce((s,sec)=>s+sec.items.length,0);
+
+function setStatus(id, val) {
+  state[id] = state[id]===val ? null : val;
+  const el = document.getElementById('i-'+id);
+  el.className = 'item'+(state[id]?' '+state[id]:'');
+  const chk = el.querySelector('.item-check');
+  chk.textContent = state[id]==='ok'?'✓':state[id]==='gap'?'!':state[id]==='skip'?'—':'';
+  ['ok','gap','skip'].forEach(s=>{
+    const b = el.querySelector('.btn-'+s);
+    if(b) b.className='btn btn-'+s+(state[id]===s?' active':'');
+  });
+  const noteWrap = el.querySelector('.gap-note-wrap');
+  if(noteWrap) noteWrap.className='gap-note-wrap'+(state[id]==='gap'?' show':'');
+  updateProgress();
+}
+
+function updateProgress() {
+  const ok = Object.values(state).filter(v=>v==='ok').length;
+  const gap = Object.values(state).filter(v=>v==='gap').length;
+  const skip = Object.values(state).filter(v=>v==='skip').length;
+  const reviewed = ok+gap+skip;
+  const pct = Math.round(reviewed/total*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=reviewed+' of '+total+' reviewed';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('pill-ok').textContent=ok+' looks good';
+  document.getElementById('pill-gap').textContent=gap+' gaps found';
+  document.getElementById('pill-skip').textContent=skip+' not yet testable';
+}
+
+function saveNote(id, val) { notes[id]=val; }
+
+function exportSummary() {
+  const ok=[],gap=[],skip=[];
+  sections.forEach(sec=>{
+    sec.items.forEach(item=>{
+      if(state[item.id]==='ok') ok.push(item.text);
+      else if(state[item.id]==='gap') gap.push(item.text+(notes[item.id]?'\n   Note: '+notes[item.id]:''));
+      else if(state[item.id]==='skip') skip.push(item.text);
+    });
+  });
+  let out='eBids UAT SUMMARY — '+new Date().toLocaleDateString()+'\n';
+  out+='Sandra Smith · Contact: rachel.throop@newellco.com\n\n';
+  out+='REVIEWED: '+(ok.length+gap.length+skip.length)+' of '+total+'\n';
+  out+='Looks good: '+ok.length+' | Gaps: '+gap.length+' | Not yet testable: '+skip.length+'\n';
+  if(gap.length){out+='\n— GAPS ('+gap.length+') —\n';gap.forEach((g,i)=>{out+=(i+1)+'. '+g+'\n';});}
+  if(ok.length){out+='\n— LOOKS GOOD ('+ok.length+') —\n';ok.forEach((g,i)=>{out+=(i+1)+'. '+g+'\n';});}
+  if(skip.length){out+='\n— NOT YET TESTABLE ('+skip.length+') —\n';skip.forEach((g,i)=>{out+=(i+1)+'. '+g+'\n';});}
+  const blob=new Blob([out],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='ebids-uat-summary-'+new Date().toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+const cl = document.getElementById('cl');
+sections.forEach(sec=>{
+  const sg=document.createElement('div');
+  sg.className='section';
+  sg.innerHTML='<div class="section-hdr">'+sec.title+'<span class="section-count">'+sec.items.length+' items</span></div>';
+  sec.items.forEach(item=>{
+    const el=document.createElement('div');
+    el.className='item'; el.id='i-'+item.id;
+    el.innerHTML=`<div class="item-check"></div>
+<div class="item-body">
+  <div class="item-title">${item.text}</div>
+  <div class="item-sub">${item.sub}</div>
+  ${item.devnote?'<div class="item-sub devnote">⚠️ '+item.devnote+'</div>':''}
+  <div class="gap-note-wrap">
+    <textarea class="gap-note" placeholder="Describe what you saw…" oninput="saveNote('${item.id}',this.value)"></textarea>
+  </div>
+</div>
+<div class="item-actions">
+  <button class="btn btn-ok" onclick="setStatus('${item.id}','ok')">✓ Looks good</button>
+  <button class="btn btn-gap" onclick="setStatus('${item.id}','gap')">! Gap</button>
+  <button class="btn btn-skip" onclick="setStatus('${item.id}','skip')">— Not testable</button>
+</div>`;
+    sg.appendChild(el);
+  });
+  cl.appendChild(sg);
+});
+updateProgress();
+</script>
+</body>
+</html>
